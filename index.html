@@ -34,7 +34,6 @@
             <h1 class="titulo-hero">Estudio Palíndromo</h1>
         </section>
 
-        <!-- FIX: Se añade la clase 'dark-container' para el fondo oscuro -->
         <section id="sobre-nosotros" class="seccion-contenido">
             <div class="container dark-container">
                 <h2>Sobre Nosotros</h2>
@@ -49,7 +48,7 @@
                                         <a href="https://www.linkedin.com/in/joshs0lana/" target="_blank" class="social-icon-circle"><img src="imagenes/linkedin-icon.png" alt="LinkedIn"></a>
                                         <a href="https://www.imdb.com/name/nm13304009/?ref_=ext_shr_lnk" target="_blank" class="social-icon-circle"><img src="imagenes/imdb.png" alt="IMDb"></a>
                                         <a href="https://www.instagram.com/joshsolana_/" target="_blank" class="social-icon-circle"><img src="imagenes/instagram-icon.png" alt="Instagram"></a>
-                                        <a href="mailto:josh.adriansolana2@gmail.com" target="_blank" class="social-icon-circle"><img src="imagenes/Mail.png" alt="Email"></a>
+                                        <a href="mailto:josh.adriansolana2@gmail.com" class="social-icon-circle"><img src="imagenes/Mail.png" alt="Email"></a>
                                     </div>
                                 </div>
                                 <div class="about-column about-media"><div class="vimeo-container"><iframe src="https://player.vimeo.com/video/1052665636?h=06da0ad355&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div></div>
@@ -63,7 +62,7 @@
                                     <div class="social-links-section">
                                         <a href="#" target="_blank" class="enlace-guion small-button">Ver Galería</a>
                                         <a href="https://www.instagram.com/samantha_solana" target="_blank" class="social-icon-circle"><img src="imagenes/instagram-icon.png" alt="Instagram"></a>
-                                        <a href="mailto:samantha.solana.art@email.com" target="_blank" class="social-icon-circle"><img src="imagenes/Mail.png" alt="Email"></a>
+                                        <a href="mailto:samantha.solana.art@email.com" class="social-icon-circle"><img src="imagenes/Mail.png" alt="Email"></a>
                                     </div>
                                 </div>
                                 <div class="about-column about-media"><div class="instagram-grid"><a href="#" class="grid-item"><img src="imagenes/insta-sam-01.jpg" alt="Obra 1"></a><a href="#" class="grid-item"><img src="imagenes/insta-sam-02.jpg" alt="Obra 2"></a><a href="#" class="grid-item"><img src="imagenes/insta-sam-03.jpg" alt="Obra 3"></a><a href="#" class="grid-item"><img src="imagenes/insta-sam-04.jpg" alt="Obra 4"></a></div></div>
@@ -77,7 +76,7 @@
                                     <div class="social-links-section">
                                         <a href="https://www.imdb.com/name/nm13304010/?ref_=ext_shr_lnk" target="_blank" class="social-icon-circle"><img src="imagenes/imdb.png" alt="IMDb"></a>
                                         <a href="https://www.instagram.com/angelnava_22/" target="_blank" class="social-icon-circle"><img src="imagenes/instagram-icon.png" alt="Instagram"></a>
-                                        <a href="mailto:luis.nava.escritor@email.com" target="_blank" class="social-icon-circle"><img src="imagenes/Mail.png" alt="Email"></a>
+                                        <a href="mailto:luis.nava.escritor@email.com" class="social-icon-circle"><img src="imagenes/Mail.png" alt="Email"></a>
                                     </div>
                                 </div>
                                 <div class="about-column about-media"><img src="https://placehold.co/600x400/4CAF50/FFFFFF?text=Luis+Nava" alt="Luis Ángel Nava" class="profile-image"></div>
@@ -143,7 +142,12 @@
     </main>
 
     <footer class="site-footer">
-        <div class="container"><div class="footer-line"></div><a href="mailto:josh.adriansolana2@gmail.com" class="footer-symbols">MAIL</a><div class="footer-line"></div></div>
+        <div class="container">
+            <div class="footer-line"></div>
+            <!-- FIX: El enlace mailto ahora funciona correctamente -->
+            <a href="mailto:josh.adriansolana2@gmail.com" class="footer-symbols">MAIL</a>
+            <div class="footer-line"></div>
+        </div>
     </footer>
 
     <!-- MODALES -->
@@ -156,10 +160,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             gsap.registerPlugin(ScrollTrigger);
             
-            // Animación de la sirena
             gsap.to(".sirena-img", { scrollTrigger: { trigger: ".hero-sirena", start: "top top", end: "bottom top", scrub: true }, scale: 1.2, ease: "none" });
 
-            // Slider "Sobre Nosotros"
             const slidesContainer = document.querySelector('.slides');
             const slideDots = document.querySelectorAll('.slider-nav .dot');
             if (slidesContainer && slideDots.length > 0) {
@@ -173,7 +175,6 @@
                 });
             }
 
-            // Animación de la galleta de la fortuna
             const galletaTrigger = document.getElementById('galleta-anim-trigger');
             if (galletaTrigger) {
                 const frames = galletaTrigger.querySelectorAll(".galleta-secuencia");
@@ -186,25 +187,21 @@
                     scrollTrigger: {
                         trigger: "#la-fortuna",
                         start: "top center",
-                        // FIX: La animación se ejecuta una vez y se "mata" para no repetirse
                         onEnter: () => tlCookie.play(),
                         once: true
                     },
-                    paused: true // Inicia pausada
+                    paused: true
                 });
 
                 const frameCount = frames.length;
                 const step = 1 / frameCount;
                 frames.forEach((frame, i) => {
-                    if (i > 0) {
-                        tlCookie.set(frames[i - 1], { autoAlpha: 0 }, i * step);
-                        tlCookie.set(frames[i], { autoAlpha: 1 }, i * step);
-                    }
+                    if (i > 0) tlCookie.set(frames[i - 1], { autoAlpha: 0 }, i * step);
+                    tlCookie.set(frames[i], { autoAlpha: 1 }, i * step);
                 });
                 tlCookie.to(fortunaPapel, { autoAlpha: 1, scale: 1, ease: 'back.out(1.7)' }, 1 - step);
             }
             
-            // Lógica del Modal y Formulario de Fortuna
             const fortuneModal = document.getElementById('fortune-modal');
             const openFortuneModalBtn = document.getElementById('open-fortune-modal-btn');
             const closeFortuneModalBtn = document.getElementById('fortune-modal-close');
@@ -233,37 +230,32 @@
 
                         if (!subResponse.ok) throw new Error('Error al registrar el contacto.');
                         
-                        // FIX: El modal se cierra y se genera la fortuna solo si la suscripción fue exitosa
                         fortuneModal.classList.remove('visible');
                         await generateFortune();
 
                     } catch (error) {
-                        formMessage.textContent = 'Hubo un error. Inténtalo de nuevo más tarde.';
+                        formMessage.textContent = 'Hubo un error. Inténtalo de nuevo.';
                         console.error(error);
                     } finally {
                         submitBtn.disabled = false;
                         submitBtn.textContent = 'Obtener Fortuna';
-                        // No limpiamos el input para que el usuario pueda reintentar si falla
                     }
                 });
             }
 
-            // Lógica del Tarot (sin cambios)
+            // El resto del JS sin cambios
             const tarotCardsData = [ { name: "El Viaje Desolado", image: "imagenes/tarot-1.png", interpretation: "El viaje inicia con abandono, dejando atrás lo que ya no sirve." }, { name: "La Soledad del Desierto", image: "imagenes/tarot-2.jpg", interpretation: "La soledad y aridez subrayan un aislamiento sin guía espiritual." }, { name: "La Ascensión", image: "imagenes/tarot-3.jpeg", interpretation: "Una revelación forzosa que impulsa a emprender la redención." }, { name: "El Paraíso", image: "imagenes/tarot-4.jpg", interpretation: "La culminación del viaje, un reencuentro que trae paz y gracia." } ];
             const drawTarotBtn = document.getElementById('draw-tarot-btn');
             const tarotResultGrid = document.getElementById('tarot-result-grid');
             const tarotModal = document.getElementById('tarot-modal');
             const tarotDeck = document.getElementById('tarot-deck');
             if(drawTarotBtn && tarotResultGrid && tarotModal && tarotDeck) { let drawnCards = 0; const drawCard = () => { if (drawnCards >= tarotCardsData.length) return; const cardData = tarotCardsData[drawnCards]; const cardElement = document.createElement('img'); cardElement.src = cardData.image; cardElement.alt = cardData.name; cardElement.className = 'tarot-card'; cardElement.addEventListener('click', () => { document.getElementById('tarot-modal-img').src = cardData.image; document.getElementById('tarot-modal-title').innerText = cardData.name; document.getElementById('tarot-modal-text').innerText = cardData.interpretation; tarotModal.classList.add('visible'); }); tarotResultGrid.appendChild(cardElement); gsap.from(cardElement, { opacity: 0, y: 50, duration: 0.5 }); drawnCards++; if (drawnCards >= tarotCardsData.length) { drawTarotBtn.innerText = 'Lectura Completa'; drawTarotBtn.disabled = true; gsap.to([drawTarotBtn, tarotDeck], {autoAlpha: 0.5, duration: 0.5}); } }; drawTarotBtn.addEventListener('click', drawCard); tarotDeck.addEventListener('click', drawCard); const tarotModalClose = tarotModal.querySelector('.tarot-modal-close'); if(tarotModalClose) tarotModalClose.addEventListener('click', () => tarotModal.classList.remove('visible')); }
-
-            // Lógica de Poemas Apestosos (sin cambios)
             const poemasContainer = document.getElementById('poemas-explicacion-container');
             const poemasNextBtn = document.getElementById('poemas-next-btn');
             const manuscritoBtn = document.getElementById('leer-manuscrito-btn');
             if (poemasContainer && poemasNextBtn && manuscritoBtn) { const textosPoemas = [ `<h4>¿Qué es un poema apestoso?</h4><p>Un poema apestoso es un poema que no teme ensuciarse, que juega con lo grotesco, lo absurdo y lo cotidiano. Son versos que huelen a infancia, a travesura y a libertad creativa.</p>`, `<h4>¿Por qué un poema apestoso?</h4><p>Porque la poesía también puede reírse de sí misma, romper las reglas y celebrar lo imperfecto. Un poema apestoso es una invitación a escribir sin miedo al ridículo, a encontrar belleza en lo inesperado.</p>` ]; let currentPoemaIndex = 0; manuscritoBtn.style.display = 'none'; function showPoemaSlide(index) { const slideHTML = textosPoemas[index]; gsap.to(poemasContainer, { autoAlpha: 0, duration: 0.3, onComplete: () => { poemasContainer.innerHTML = slideHTML; gsap.to(poemasContainer, { autoAlpha: 1, duration: 0.3 }); } }); const isLastSlide = index === textosPoemas.length - 1; gsap.to(poemasNextBtn, { autoAlpha: isLastSlide ? 0 : 1, duration: 0.3, pointerEvents: isLastSlide ? 'none' : 'auto' }); gsap.to(manuscritoBtn, { autoAlpha: isLastSlide ? 1 : 0, display: isLastSlide ? 'inline-block' : 'none', duration: 0.3 }); } poemasNextBtn.addEventListener('click', () => { currentPoemaIndex = (currentPoemaIndex + 1) % textosPoemas.length; showPoemaSlide(currentPoemaIndex); }); showPoemaSlide(0); }
         });
 
-        // Función para generar fortuna (sin cambios)
         async function generateFortune() { const fortunePaper = document.querySelector('.fortuna-papel'); const openFortuneBtn = document.getElementById('open-fortune-modal-btn'); openFortuneBtn.disabled = true; fortunePaper.innerText = 'Generando...'; try { const response = await fetch('/api/generate-fortune', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: `Eres un escritor de galletas de la fortuna para un guion de cine. Genera una fortuna poética, misteriosa y ligeramente melancólica en una sola oración concisa en español. No incluyas comillas.` }), }); if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); const data = await response.json(); gsap.to(fortunePaper, { opacity: 0, duration: 0.3, onComplete: () => { fortunePaper.innerText = data.fortune; gsap.to(fortunePaper, { opacity: 1, duration: 0.5, ease: "power2.out" }); } }); } catch (error) { console.error('Error al generar la fortuna:', error); fortunePaper.innerText = "El destino está nublado hoy."; gsap.to(fortunePaper, { opacity: 1, duration: 0.5 }); } finally { openFortuneBtn.disabled = false; } }
     </script>
 </body>
