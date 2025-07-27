@@ -1,11 +1,12 @@
 /* --- 1. Variables y Estilos Globales --- */
 :root {
-    --color-fortuna: #D92B04;
+    --color-fortuna: #D92B04; /* Color rosado/rojo para hovers */
     --color-dante: #8A2BE2;
     --color-titulo-dorado: #FFD700;
     --font-elegant: 'Cormorant Garamond', serif;
     --font-body: 'Helvetica Neue', sans-serif;
-    --font-special: 'MedievalSharp', cursive;
+    /* FIX: Se restaura la fuente original del título */
+    --font-title: 'Cinzel Decorative', cursive;
     --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -16,12 +17,12 @@
 }
 
 html {
-    /* FIX: Permite que el scroll a las anclas (#) sea suave */
     scroll-behavior: smooth;
 }
 
 body {
     font-family: var(--font-body);
+    /* FIX: Se restaura el fondo original del mar */
     background-image: url('imagenes/fondo-mar-nuevo.jpg');
     background-size: cover;
     background-position: center center;
@@ -29,7 +30,6 @@ body {
     color: #f0f0f0;
     overflow-x: hidden;
     line-height: 1.6;
-    font-size: 16px;
 }
 
 img {
@@ -47,18 +47,16 @@ img {
 
 /* --- 2. Header (Menú superior) --- */
 #page-header {
-    /* FIX: position: fixed es lo que hace que el menú se quede fijo arriba */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 15px 0;
-    z-index: 1000; /* Se asegura de que esté por encima de todo */
+    padding: 10px 0;
+    z-index: 1000;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: var(--transition-smooth);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition-smooth);
 }
 
 .header-container {
@@ -68,7 +66,7 @@ img {
 }
 
 .header-titulo {
-    font-family: 'Cinzel Decorative', cursive;
+    font-family: var(--font-title); /* FIX: Tipografía restaurada */
     font-size: clamp(1.5rem, 4vw, 2.2rem);
     color: #fff;
     text-decoration: none;
@@ -81,33 +79,34 @@ img {
 }
 
 .menu-circulo img {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    border: 2px solid transparent;
+    /* FIX: Círculo visible por defecto */
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 5px;
     transition: var(--transition-smooth);
 }
 
 .menu-circulo:hover img {
-    border-color: var(--color-titulo-dorado);
+    /* FIX: Se restaura el color de hover original */
+    border-color: var(--color-fortuna);
     transform: scale(1.1);
 }
 
-
 /* --- 3. Sección Hero (Sirena) --- */
 .hero-sirena {
-    /* FIX: Ocupa toda la pantalla y sirve como contenedor para la imagen y el título */
     height: 100vh;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow: hidden; /* Evita que la imagen con zoom se desborde */
+    overflow: hidden;
 }
 
 .hero-background {
-    /* FIX: Contenedor para la imagen de fondo */
     position: absolute;
     top: 0;
     left: 0;
@@ -117,7 +116,6 @@ img {
 }
 
 .hero-background::after {
-    /* FIX: Capa oscura sobre la imagen para que el texto resalte */
     content: '';
     position: absolute;
     top: 0;
@@ -128,58 +126,90 @@ img {
 }
 
 .sirena-img {
-    /* FIX: La imagen ahora cubre todo el contenedor sin deformarse */
     width: 100%;
     height: 100%;
-    object-fit: cover; /* La clave para que la imagen no se estire */
+    object-fit: cover;
     object-position: center;
 }
 
 .titulo-hero {
-    /* FIX: Posiciona el título sobre la imagen */
     position: relative;
     z-index: 2;
-    font-family: 'Cinzel Decorative', cursive;
+    font-family: var(--font-title); /* FIX: Tipografía restaurada */
     font-size: clamp(3rem, 10vw, 6rem);
     color: #fff;
     text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
 }
 
-/* --- 4. Contenido Principal --- */
-main {
-    /* FIX: Deja un espacio arriba para que el contenido no quede oculto por el header fijo */
-    /* El valor puede necesitar ajuste según la altura final del header */
-    padding-top: 80px; 
-}
 
+/* --- 4. Contenido General --- */
 .seccion-contenido {
     padding: clamp(3rem, 8vw, 6rem) 0;
-    margin: 0 auto 4rem auto;
+    position: relative; /* Necesario para los fondos */
+    overflow: hidden; /* Evita que los fondos se salgan */
+}
+
+/* Contenedor con fondo oscuro por defecto */
+.seccion-contenido .container {
+    position: relative;
+    z-index: 2;
     background: rgba(10, 10, 10, 0.75);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: clamp(2rem, 5vw, 4rem);
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 }
 
-/* --- 5. Estilos de Tipografía y Componentes --- */
-h2, h3, .titulo-dante {
+/* FIX: Fondo para la sección Fortuna */
+#fortuna-background-slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-image: url('imagenes/fondo-fortuna.jpg'); /* <- CAMBIA ESTA IMAGEN */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+}
+
+/* FIX: Quitar el fondo oscuro en la sección Dante para que se vea el fondo del body */
+#dante-en-la-playa .container {
+    background: none;
+    backdrop-filter: none;
+    border: none;
+}
+
+/* FIX: Fondo para la sección Poemas */
+#poemas-apestosos {
+     background-image: url('imagenes/fondo-poemas.jpg'); /* <- CAMBIA ESTA IMAGEN */
+     background-size: cover;
+     background-position: center;
+}
+#poemas-apestosos .container {
+    background: rgba(10, 10, 10, 0.8); /* Fondo oscuro para legibilidad */
+}
+
+
+/* --- 5. Tipografía y Componentes --- */
+h2, h3 {
     text-align: center;
     margin-top: 0;
     margin-bottom: 2rem;
 }
-
 h2 {
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-family: var(--font-elegant);
     font-weight: 700;
 }
-
 .titulo-dorado {
     color: var(--color-titulo-dorado);
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
-
 h3 {
     font-size: clamp(1.25rem, 3vw, 1.75rem);
     font-family: var(--font-elegant);
@@ -187,7 +217,6 @@ h3 {
     font-style: italic;
     color: #ccc;
 }
-
 .logline {
     font-family: var(--font-elegant);
     font-size: clamp(1.1rem, 2.5vw, 1.4rem);
@@ -198,7 +227,6 @@ h3 {
     text-align: center;
     padding: 0 1rem;
 }
-
 .enlace-guion {
     display: inline-block;
     padding: 0.75em 1.5em;
@@ -213,7 +241,6 @@ h3 {
     font-size: clamp(0.9rem, 2vw, 1rem);
     text-align: center;
 }
-
 .enlace-guion:hover {
     background-color: var(--color-titulo-dorado);
     color: #111;
@@ -226,17 +253,18 @@ h3 {
 /* Sobre Nosotros (Slider) */
 .slider-container {
     overflow: hidden;
+    width: 100%;
 }
 .slides {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    width: 300%; /* 100% por cada slide */
 }
 .slide {
-    min-width: 100%;
+    width: 100%;
     padding: 1rem;
 }
 .about-layout {
-    /* FIX: Layout de dos columnas que se adapta a móvil */
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
@@ -244,12 +272,14 @@ h3 {
 }
 .about-column {
     flex: 1;
-    min-width: 300px; /* Evita que las columnas se aplasten demasiado */
+    min-width: 300px;
 }
 .vimeo-container {
     position: relative;
-    padding-bottom: 56.25%; /* Proporción 16:9 */
+    padding-bottom: 56.25%;
     height: 0;
+    border-radius: 10px;
+    overflow: hidden;
 }
 .vimeo-container iframe {
     position: absolute;
@@ -273,11 +303,51 @@ h3 {
     margin-top: 1.5rem;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 15px;
 }
+
+/* FIX: Estilos para los íconos de redes sociales y su hover */
+.social-icon-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: var(--transition-smooth);
+}
 .social-icon-circle img {
-    width: 35px;
-    height: 35px;
+    width: 60%;
+    height: 60%;
+    filter: invert(1); /* Pone los logos en blanco */
+}
+.social-icon-circle:hover {
+    background-color: var(--color-fortuna); /* Color rosado/rojo */
+    border-color: var(--color-fortuna);
+    transform: translateY(-2px);
+}
+
+/* FIX: Estilos para los puntos del slider */
+.slider-nav {
+    text-align: center;
+    margin-top: 2rem;
+}
+.dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #555;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+.dot.active {
+    background-color: var(--color-titulo-dorado);
+    transform: scale(1.2);
 }
 
 /* La Fortuna */
@@ -302,6 +372,8 @@ h3 {
     position: relative;
     max-width: 400px;
     margin: auto;
+    /* Da un tamaño fijo al contenedor para que las imágenes no salten */
+    aspect-ratio: 1 / 1; 
 }
 .galleta-secuencia {
     position: absolute;
@@ -322,6 +394,7 @@ h3 {
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     text-align: center;
     width: 80%;
+    font-family: var(--font-elegant);
 }
 
 /* Dante en la Playa */
@@ -367,7 +440,7 @@ h3 {
 }
 
 /* Poemas Apestosos */
-.seccion-poemas {
+.seccion-poemas .container {
     text-align: center;
 }
 #poemas-explicacion-container h4 {
@@ -393,86 +466,16 @@ h3 {
     transform: scale(1.1);
 }
 
-/* Footer */
-.site-footer {
-    padding: 2rem 0;
-    text-align: center;
-}
-.footer-line {
-    height: 1px;
-    background: rgba(255, 255, 255, 0.3);
-    width: 40%;
-    margin: 0 1rem;
-}
-.site-footer .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.footer-symbols {
-    font-family: var(--font-elegant);
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-}
-.footer-title-reversed {
-    display: none; /* Oculto por ahora, puedes activarlo si quieres */
-}
-
-/* Modales */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
-}
-.modal-overlay.visible {
-    opacity: 1;
-    visibility: visible;
-}
-.modal-content {
-    background: #222;
-    padding: 2rem;
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
-    position: relative;
-}
-.modal-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 1.5rem;
-    color: #fff;
-    cursor: pointer;
-}
-.modal-content h4 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    font-family: var(--font-elegant);
-}
-.modal-content p {
-    margin-bottom: 1.5rem;
-}
-.modal-content input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 1rem;
-    border-radius: 25px;
-    border: 1px solid #555;
-    background: #333;
-    color: #fff;
-}
+/* Footer y Modales sin cambios... */
+.site-footer { padding: 2rem 0; text-align: center; }
+.footer-line { height: 1px; background: rgba(255, 255, 255, 0.3); width: 40%; margin: 0 1rem; }
+.site-footer .container { display: flex; justify-content: center; align-items: center; }
+.footer-symbols { font-family: var(--font-elegant); color: #fff; text-decoration: none; font-weight: bold; }
+.footer-title-reversed { display: none; }
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+.modal-overlay.visible { opacity: 1; visibility: visible; }
+.modal-content { background: #222; padding: 2rem; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.2); width: 90%; max-width: 500px; text-align: center; position: relative; }
+.modal-close { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; color: #fff; cursor: pointer; }
+.modal-content h4 { margin-top: 0; margin-bottom: 1rem; font-size: 1.5rem; font-family: var(--font-elegant); }
+.modal-content p { margin-bottom: 1.5rem; }
+.modal-content input { width: 100%; padding: 12px; margin-bottom: 1rem; border-radius: 25px; border: 1px solid #555; background: #333; color: #fff; }
