@@ -54,7 +54,6 @@ img {
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: var(--transition-smooth);
 }
 .header-container { display: flex; justify-content: space-between; align-items: center; }
 .header-titulo { font-family: var(--font-title); font-size: clamp(1.5rem, 4vw, 2.2rem); color: #fff; text-decoration: none; text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); }
@@ -62,7 +61,7 @@ img {
 .menu-circulo img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.7); background-color: rgba(0, 0, 0, 0.4); padding: 5px; transition: var(--transition-smooth); }
 .menu-circulo:hover img { border-color: var(--color-fortuna); transform: scale(1.1); }
 
-/* --- 3. Sección Hero (Sirena) --- */
+/* --- 3. Sección Hero --- */
 .hero-sirena { height: 100vh; position: relative; display: flex; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
 .hero-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 .hero-background::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); }
@@ -71,13 +70,13 @@ img {
 
 /* --- 4. Layout de Secciones --- */
 .seccion-contenido {
-    /* FIX: Las secciones ahora son full-width y sin margen vertical */
-    padding: clamp(4rem, 10vw, 8rem) 0; /* Espacio interno vertical */
+    padding: clamp(4rem, 10vw, 8rem) 0;
     position: relative;
     overflow: hidden;
+    /* FIX: Se elimina el fondo del body en las secciones para que los ::before funcionen */
+    background-color: #0a0a0a; /* Un color oscuro base */
 }
 
-/* FIX: Pseudo-elemento para los fondos, para que no interfieran con el contenido */
 .seccion-contenido::before {
     content: '';
     position: absolute;
@@ -88,27 +87,30 @@ img {
     z-index: 0;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Efecto parallax */
+    background-attachment: fixed;
+    opacity: 0.3; /* Opacidad general para los fondos */
 }
 
-/* FIX: Se aplican los fondos específicos a cada sección */
+/* FIX: Fondos específicos para cada sección */
 #la-fortuna::before {
     background-image: url('imagenes/fondo-fortuna.jpg');
-    opacity: 0.25;
 }
 #poemas-apestosos::before {
     background-image: url('imagenes/fondo-poemas.jpg');
     opacity: 0.9;
 }
-/* Dante en la playa no necesita un ::before porque usa el fondo del body */
+/* FIX: Dante en la playa no tendrá un ::before, por lo que se verá el fondo oscuro base de .seccion-contenido */
+/* Para que se vea el fondo del mar, quitamos el color de fondo de la sección */
+#dante-en-la-playa {
+    background-color: transparent;
+}
 
-/* El contenido de las secciones sí se mantiene centrado */
+
 .seccion-contenido .container {
     position: relative;
     z-index: 1;
 }
 
-/* Estilos para el contenedor oscuro que se usará en algunas secciones */
 .dark-container {
     background: rgba(10, 10, 10, 0.75);
     backdrop-filter: blur(12px);
@@ -118,7 +120,7 @@ img {
     padding: clamp(2rem, 5vw, 4rem);
 }
 
-/* --- 5. Tipografía y Componentes (Sin cambios mayores) --- */
+/* --- 5. Tipografía y Componentes --- */
 h2, h3 { text-align: center; margin-top: 0; margin-bottom: 2rem; }
 h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-family: var(--font-elegant); font-weight: 700; }
 .titulo-dorado { color: var(--color-titulo-dorado); text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
@@ -150,7 +152,10 @@ h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); font-family: var(--font-elegant); 
 .fortuna-main-content { display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; }
 .fortuna-columna-texto, .fortuna-columna-animacion { flex: 1; min-width: 300px; }
 .action-buttons-container { margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-.galleta-container { position: relative; max-width: 400px; margin: auto; aspect-ratio: 1 / 1; }
+.galleta-container { position: relative; margin: auto; aspect-ratio: 1 / 1; 
+    /* FIX: Se reduce el tamaño máximo de la galleta */
+    max-width: 300px; 
+}
 .galleta-secuencia { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 .fortuna-papel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff8e1; color: #333; padding: 10px 20px; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); text-align: center; width: 80%; font-family: var(--font-elegant); }
 
