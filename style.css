@@ -6,17 +6,21 @@
     --font-elegant: 'Cormorant Garamond', serif;
     --font-body: 'Helvetica Neue', sans-serif;
     --font-special: 'MedievalSharp', cursive;
-
-    /* Transiciones suaves para una experiencia más fluida */
     --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 *, *::before, *::after {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    /* FIX: Permite que el scroll a las anclas (#) sea suave */
+    scroll-behavior: smooth;
 }
 
 body {
-    margin: 0;
     font-family: var(--font-body);
     background-image: url('imagenes/fondo-mar-nuevo.jpg');
     background-size: cover;
@@ -25,7 +29,7 @@ body {
     color: #f0f0f0;
     overflow-x: hidden;
     line-height: 1.6;
-    font-size: 16px; /* Tamaño base para cálculos con rem */
+    font-size: 16px;
 }
 
 img {
@@ -34,30 +38,131 @@ img {
     display: block;
 }
 
-/* --- 2. Contenedor Principal y Layout de Secciones --- */
 .container {
     width: 90%;
-    max-width: 1200px; /* Limita el ancho en pantallas grandes */
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.seccion-contenido {
-    padding-top: clamp(3rem, 8vw, 6rem);
-    padding-bottom: clamp(3rem, 8vw, 6rem);
+/* --- 2. Header (Menú superior) --- */
+#page-header {
+    /* FIX: position: fixed es lo que hace que el menú se quede fijo arriba */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 0;
+    z-index: 1000; /* Se asegura de que esté por encima de todo */
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: var(--transition-smooth);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.seccion-contenido:not(.special-bg):not(.seccion-poemas) {
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-titulo {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.header-menu-lado {
+    display: flex;
+    gap: 15px;
+}
+
+.menu-circulo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: var(--transition-smooth);
+}
+
+.menu-circulo:hover img {
+    border-color: var(--color-titulo-dorado);
+    transform: scale(1.1);
+}
+
+
+/* --- 3. Sección Hero (Sirena) --- */
+.hero-sirena {
+    /* FIX: Ocupa toda la pantalla y sirve como contenedor para la imagen y el título */
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden; /* Evita que la imagen con zoom se desborde */
+}
+
+.hero-background {
+    /* FIX: Contenedor para la imagen de fondo */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-background::after {
+    /* FIX: Capa oscura sobre la imagen para que el texto resalte */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.sirena-img {
+    /* FIX: La imagen ahora cubre todo el contenedor sin deformarse */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* La clave para que la imagen no se estire */
+    object-position: center;
+}
+
+.titulo-hero {
+    /* FIX: Posiciona el título sobre la imagen */
+    position: relative;
+    z-index: 2;
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(3rem, 10vw, 6rem);
+    color: #fff;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
+}
+
+/* --- 4. Contenido Principal --- */
+main {
+    /* FIX: Deja un espacio arriba para que el contenido no quede oculto por el header fijo */
+    /* El valor puede necesitar ajuste según la altura final del header */
+    padding-top: 80px; 
+}
+
+.seccion-contenido {
+    padding: clamp(3rem, 8vw, 6rem) 0;
+    margin: 0 auto 4rem auto;
     background: rgba(10, 10, 10, 0.75);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    margin-top: 4rem;
-    margin-bottom: 4rem;
 }
 
-/* --- 3. Tipografía --- */
+/* --- 5. Estilos de Tipografía y Componentes --- */
 h2, h3, .titulo-dante {
     text-align: center;
     margin-top: 0;
@@ -69,6 +174,7 @@ h2 {
     font-family: var(--font-elegant);
     font-weight: 700;
 }
+
 .titulo-dorado {
     color: var(--color-titulo-dorado);
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
@@ -81,6 +187,7 @@ h3 {
     font-style: italic;
     color: #ccc;
 }
+
 .logline {
     font-family: var(--font-elegant);
     font-size: clamp(1.1rem, 2.5vw, 1.4rem);
@@ -89,9 +196,9 @@ h3 {
     margin-bottom: 2rem;
     font-weight: 700;
     text-align: center;
+    padding: 0 1rem;
 }
 
-/* --- 4. Componentes Reutilizables (Botones, etc.) --- */
 .enlace-guion {
     display: inline-block;
     padding: 0.75em 1.5em;
@@ -106,6 +213,7 @@ h3 {
     font-size: clamp(0.9rem, 2vw, 1rem);
     text-align: center;
 }
+
 .enlace-guion:hover {
     background-color: var(--color-titulo-dorado);
     color: #111;
@@ -113,20 +221,258 @@ h3 {
     box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
 }
 
-/* --- 5. Estilos por Sección --- */
+/* --- 6. Secciones Específicas --- */
 
-/* Header */
-#page-header {
+/* Sobre Nosotros (Slider) */
+.slider-container {
+    overflow: hidden;
+}
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.slide {
+    min-width: 100%;
+    padding: 1rem;
+}
+.about-layout {
+    /* FIX: Layout de dos columnas que se adapta a móvil */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+}
+.about-column {
+    flex: 1;
+    min-width: 300px; /* Evita que las columnas se aplasten demasiado */
+}
+.vimeo-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Proporción 16:9 */
+    height: 0;
+}
+.vimeo-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+.instagram-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.social-links-section {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.social-icon-circle img {
+    width: 35px;
+    height: 35px;
+}
+
+/* La Fortuna */
+.fortuna-main-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+}
+.fortuna-columna-texto, .fortuna-columna-animacion {
+    flex: 1;
+    min-width: 300px;
+}
+.action-buttons-container {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.galleta-container {
+    position: relative;
+    max-width: 400px;
+    margin: auto;
+}
+.galleta-secuencia {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.fortuna-papel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff8e1;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 80%;
+}
+
+/* Dante en la Playa */
+.dante-grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 3rem;
+    align-items: center;
+}
+.titulo-dante {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-align: left;
+}
+.subtitle-dante {
+    display: block;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-style: italic;
+    font-weight: 400;
+    color: #ccc;
+}
+.tarot-interactive-area {
+    text-align: center;
+}
+#tarot-deck {
+    cursor: pointer;
+    max-width: 200px;
+    margin: 0 auto 1.5rem auto;
+    transition: var(--transition-smooth);
+}
+#tarot-deck:hover {
+    transform: translateY(-5px);
+}
+#tarot-result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.tarot-card {
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+/* Poemas Apestosos */
+.seccion-poemas {
+    text-align: center;
+}
+#poemas-explicacion-container h4 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-titulo-dorado);
+}
+#poemas-explicacion-container p {
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+}
+.poemas-nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+.poemas-nav-btn img {
+    width: 50px;
+    transition: transform 0.2s;
+}
+.poemas-nav-btn:hover img {
+    transform: scale(1.1);
+}
+
+/* Footer */
+.site-footer {
+    padding: 2rem 0;
+    text-align: center;
+}
+.footer-line {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+    width: 40%;
+    margin: 0 1rem;
+}
+.site-footer .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer-symbols {
+    font-family: var(--font-elegant);
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+.footer-title-reversed {
+    display: none; /* Oculto por ahora, puedes activarlo si quieres */
+}
+
+/* Modales */
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 10px 0;
-    z-index: 1000;
-    background: rgba(0,0,0,0.8);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    transform: translateZ(0);
-    will-change: transform;
-    transition: var(--transition-smooth);
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+.modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-content {
+    background: #222;
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+}
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+}
+.modal-content h4 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-family: var(--font-elegant);
+}
+.modal-content p {
+    margin-bottom: 1.5rem;
+}
+.modal-content input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 1rem;
+    border-radius: 25px;
+    border: 1px solid #555;
+    background: #333;
+    color: #fff;
 }
