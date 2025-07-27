@@ -6,7 +6,6 @@ require('dotenv').config();
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 
-// La carga del service account no cambia
 const serviceAccount = require('./firebase-service-account.json');
 
 initializeApp({
@@ -20,13 +19,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
 
-// Asegurarse de que la API Key se carga
 if (!process.env.GEMINI_API_KEY) {
     console.error("FATAL ERROR: La variable de entorno GEMINI_API_KEY no está definida.");
 }
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// Ruta para suscriptores (sin cambios)
 app.post('/api/subscribe', async (req, res) => {
     try {
         const { contact } = req.body;
@@ -45,10 +42,10 @@ app.post('/api/subscribe', async (req, res) => {
     }
 });
 
-// Ruta para generar fortunas
 app.post('/api/generate-fortune', async (req, res) => {
     try {
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        // FIX: Se actualiza el nombre del modelo a la versión correcta
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
         const prompt = req.body.prompt;
         
         const result = await model.generateContent(prompt);
@@ -57,8 +54,6 @@ app.post('/api/generate-fortune', async (req, res) => {
         
         res.json({ fortune });
     } catch (error) {
-        // FIX: Se añade un log de error mucho más detallado
-        // Esto te ayudará a ver el problema real en los logs de Render
         console.error('--- ERROR DETALLADO DE GEMINI API ---');
         console.error('Ha ocurrido un error al contactar la API de Gemini.');
         console.error('Causa probable: La API Key no es válida o está mal configurada en las variables de entorno de Render.');
