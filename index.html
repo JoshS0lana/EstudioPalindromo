@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Cinzel+Decorative:wght@700&family=MedievalSharp&family=Gaegu:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
+    <!-- Asegúrate de que el nombre del archivo CSS coincida -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,8 +28,12 @@
     </header>
     
     <main>
+        <!-- FIX: Se añadió un div contenedor para la imagen y el título -->
+        <!-- Esto permite posicionar la imagen como un fondo que no se deforma -->
         <section class="hero-sirena">
-            <img src="imagenes/sirena-portada.jpg" alt="Logo de Estudio Palíndromo: Sirena con cámara cinematográfica" class="sirena-img">
+            <div class="hero-background">
+                 <img src="imagenes/sirena-portada.jpg" alt="Logo de Estudio Palíndromo: Sirena con cámara cinematográfica" class="sirena-img">
+            </div>
             <h1 class="titulo-hero">Estudio Palíndromo</h1>
         </section>
 
@@ -199,10 +204,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
     <script>
-        // EL SCRIPT JS NO NECESITA CAMBIOS
-        // Pegar aquí el mismo script de la versión anterior.
         document.addEventListener('DOMContentLoaded', () => {
             gsap.registerPlugin(ScrollTrigger);
+            
+            // --- FIX: Animación de la sirena ---
+            // Anima la imagen de la sirena para que haga un suave zoom al hacer scroll
+            gsap.to(".sirena-img", {
+                scrollTrigger: {
+                    trigger: ".hero-sirena",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                },
+                scale: 1.2, // Aumenta el tamaño de la imagen a 120%
+                ease: "none"
+            });
+
 
             const slidesContainer = document.querySelector('.slides');
             const slideDots = document.querySelectorAll('.slider-nav .dot');
@@ -252,39 +269,41 @@
             const closeFortuneModalBtn = document.getElementById('fortune-modal-close');
             const subscribeForm = document.getElementById('subscribe-form');
             
-            openFortuneModalBtn.addEventListener('click', () => fortuneModal.classList.add('visible'));
-            closeFortuneModalBtn.addEventListener('click', () => fortuneModal.classList.remove('visible'));
+            if(openFortuneModalBtn) openFortuneModalBtn.addEventListener('click', () => fortuneModal.classList.add('visible'));
+            if(closeFortuneModalBtn) closeFortuneModalBtn.addEventListener('click', () => fortuneModal.classList.remove('visible'));
             
-            subscribeForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const contactInput = document.getElementById('contact-input');
-                const formMessage = document.getElementById('form-message');
-                const submitBtn = document.getElementById('subscribe-and-generate-btn');
+            if(subscribeForm) {
+                subscribeForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const contactInput = document.getElementById('contact-input');
+                    const formMessage = document.getElementById('form-message');
+                    const submitBtn = document.getElementById('subscribe-and-generate-btn');
 
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Guardando...';
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Guardando...';
 
-                try {
-                    const subResponse = await fetch('/api/subscribe', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ contact: contactInput.value }),
-                    });
+                    try {
+                        const subResponse = await fetch('/api/subscribe', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ contact: contactInput.value }),
+                        });
 
-                    if (!subResponse.ok) throw new Error('Error al suscribir.');
+                        if (!subResponse.ok) throw new Error('Error al suscribir.');
 
-                    fortuneModal.classList.remove('visible');
-                    await generateFortune();
+                        fortuneModal.classList.remove('visible');
+                        await generateFortune();
 
-                } catch (error) {
-                    formMessage.textContent = 'Hubo un error. Inténtalo de nuevo.';
-                    console.error(error);
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Obtener Fortuna';
-                    contactInput.value = '';
-                }
-            });
+                    } catch (error) {
+                        formMessage.textContent = 'Hubo un error. Inténtalo de nuevo.';
+                        console.error(error);
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Obtener Fortuna';
+                        contactInput.value = '';
+                    }
+                });
+            }
 
             const tarotCardsData = [
                 { name: "El Viaje Desolado", image: "imagenes/tarot-1.png", interpretation: "El viaje inicia con abandono, dejando atrás lo que ya no sirve." },
@@ -329,7 +348,7 @@
                 tarotDeck.addEventListener('click', drawCard);
 
                 const tarotModalClose = tarotModal.querySelector('.tarot-modal-close');
-                tarotModalClose.addEventListener('click', () => tarotModal.classList.remove('visible'));
+                if(tarotModalClose) tarotModalClose.addEventListener('click', () => tarotModal.classList.remove('visible'));
             }
 
             const poemasContainer = document.getElementById('poemas-explicacion-container');
