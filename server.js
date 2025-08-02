@@ -1,13 +1,14 @@
 require('dotenv').config();
 const express = require('express');
 const admin = require('firebase-admin');
+const path = require('path'); // Añadir path para manejar rutas de archivos
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// --- Configuración de Firebase ---
-// Asegúrate de que la variable de entorno esté correctamente configurada en tu hosting.
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+// --- Configuración de Firebase (Método Corregido) ---
+// Volvemos a cargar las credenciales directamente desde el archivo JSON, como lo tenías originalmente.
+const serviceAccount = require("./firebase-service-account.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -15,13 +16,15 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-// Servir archivos estáticos desde la carpeta 'public'
-app.use(express.static('public'));
+// Servir archivos estáticos desde la carpeta raíz del proyecto.
+// Esto coincide con tu estructura original donde index.html está en la raíz.
+app.use(express.static(__dirname));
 app.use(express.json());
 
 // Ruta para la página principal
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+  // Servimos el index.html desde la raíz del proyecto.
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // --- RUTA PARA LA FORTUNA ---
@@ -42,7 +45,6 @@ app.get('/fortuna', async (req, res) => {
 });
 
 // --- RUTA PARA POEMAS APESTOSOS ---
-// FIX: Esta ruta estaba comentada. La he activado.
 app.get('/poemas', (req, res) => {
     const poemas = [
         {
