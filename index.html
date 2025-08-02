@@ -259,6 +259,57 @@
         });
 
         async function generateFortune() { const fortunePaper = document.querySelector('.fortuna-papel'); const openFortuneBtn = document.getElementById('open-fortune-modal-btn'); openFortuneBtn.disabled = true; fortunePaper.innerText = 'Generando...'; try { const response = await fetch('/api/generate-fortune', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: `Eres un escritor de galletas de la fortuna para un guion de cine. Genera una fortuna poética, misteriosa y ligeramente melancólica en una sola oración concisa en español. No incluyas comillas.` }), }); if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); const data = await response.json(); gsap.to(fortunePaper, { opacity: 0, duration: 0.3, onComplete: () => { fortunePaper.innerText = data.fortune; gsap.to(fortunePaper, { opacity: 1, duration: 0.5, ease: "power2.out" }); } }); } catch (error) { console.error('Error al generar la fortuna:', error); fortunePaper.innerText = "El destino está nublado hoy."; gsap.to(fortunePaper, { opacity: 1, duration: 0.5 }); } finally { openFortuneBtn.disabled = false; } }
+         
+        // --- LÓGICA PARA POEMAS APESTOSOS ---
+        
+        // Guardaremos los poemas aquí cuando los recibamos del servidor.
+        let todosLosPoemas = [];
+        let poemaActualIndex = 0;
+
+        // Elementos del HTML que vamos a manipular.
+        const poemaTituloEl = document.getElementById('poema-titulo');
+        const poemaTextoEl = document.getElementById('poema-texto');
+        const poemaAutorEl = document.getElementById('poema-autor');
+        const prevPoemaBtn = document.getElementById('prev-poema');
+        const nextPoemaBtn = document.getElementById('next-poema');
+
+        // Función para mostrar un poema específico según su posición en la lista (index).
+        function mostrarPoema(index) {
+            if (todosLosPoemas.length === 0) return; // No hacer nada si no hay poemas.
+
+            const poema = todosLosPoemas[index];
+            poemaTituloEl.textContent = poema.titulo;
+            poemaTextoEl.textContent = poema.poema;
+            poemaAutorEl.textContent = `- ${poema.autor}`;
+        }
+
+        // Pedimos los poemas al servidor en cuanto la página cargue.
+        fetch('/poemas')
+            .then(response => response.json())
+            .then(data => {
+                todosLosPoemas = data; // Guardamos la lista de poemas.
+                mostrarPoema(0); // Mostramos el primer poema.
+            })
+            .catch(error => {
+                console.error('Error al cargar los poemas:', error);
+                poemaTituloEl.textContent = "No pudimos cargar los poemas.";
+                poemaTextoEl.textContent = "Intenta refrescar la página.";
+            });
+
+        // Evento para el botón "siguiente".
+        nextPoemaBtn.addEventListener('click', () => {
+            // Aumentamos el índice, y si llegamos al final, volvemos al principio.
+            poemaActualIndex = (poemaActualIndex + 1) % todosLosPoemas.length;
+            mostrarPoema(poemaActualIndex);
+        });
+
+        // Evento para el botón "anterior".
+        prevPoemaBtn.addEventListener('click', () => {
+            // Disminuimos el índice. Si estamos en el primero, vamos al último.
+            poemaActualIndex = (poemaActualIndex - 1 + todosLosPoemas.length) % todosLosPoemas.length;
+            mostrarPoema(poemaActualIndex);
+        });
     </script>
 </body>
 </html>
+
