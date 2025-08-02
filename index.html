@@ -134,13 +134,28 @@
             </div>
         </section>
 
-        <section id="poemas-apestosos" class="seccion-contenido">
-             <div class="container dark-container">
-                <div id="poemas-explicacion-container"></div>
-                <a href="#" id="leer-manuscrito-btn" class="enlace-guion" target="_blank">Leer Manuscrito</a>
-                <button id="poemas-next-btn" class="poemas-nav-btn"><img src="imagenes/caca.png" alt="Siguiente"></button>
-             </div>
-        </section>
+        <section id="poemas-apestosos" class="seccion-contenido seccion-poemas">
+    <div class="container">
+        <h2>Y UN PAR DE COCHINADAS MÁS.</h2>
+        
+        <!-- Contenedor donde se mostrará el poema actual -->
+        <div id="poema-display" class="dark-container" style="margin-bottom: 2rem; min-height: 250px;">
+            <h3 id="poema-titulo" class="titulo-dorado">Cargando poema...</h3>
+            <p id="poema-texto" style="white-space: pre-wrap; margin-top: 1rem; margin-bottom: 1.5rem;"></p>
+            <em id="poema-autor" style="display: block; text-align: right;"></em>
+        </div>
+
+        <!-- Controles de navegación -->
+        <div class="poemas-nav" style="text-align: center;">
+            <button id="prev-poema" class="poemas-nav-btn">
+                <img src="imagenes/caca.png" alt="Anterior" style="transform: scaleX(-1); width:50px;">
+            </button>
+            <button id="next-poema" class="poemas-nav-btn">
+                <img src="imagenes/caca.png" alt="Siguiente" style="width:50px;">
+            </button>
+        </div>
+    </div>
+</section>
     </main>
 
     <footer class="site-footer">
@@ -312,4 +327,5 @@
     </script>
 </body>
 </html>
+
 
