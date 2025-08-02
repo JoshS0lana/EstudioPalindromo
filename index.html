@@ -295,56 +295,78 @@
          
         // --- LÓGICA PARA POEMAS APESTOSOS ---
         
-        // Guardaremos los poemas aquí cuando los recibamos del servidor.
-        let todosLosPoemas = [];
-        let poemaActualIndex = 0;
+let todosLosPoemas = [];
+let poemaActualIndex = 0;
 
-        // Elementos del HTML que vamos a manipular.
-        const poemaTituloEl = document.getElementById('poema-titulo');
-        const poemaTextoEl = document.getElementById('poema-texto');
-        const poemaAutorEl = document.getElementById('poema-autor');
-        const prevPoemaBtn = document.getElementById('prev-poema');
-        const nextPoemaBtn = document.getElementById('next-poema');
+const poemaTituloEl = document.getElementById('poema-titulo');
+const poemaTextoEl = document.getElementById('poema-texto');
+const poemaAutorEl = document.getElementById('poema-autor');
+const prevPoemaBtn = document.getElementById('prev-poema');
+const nextPoemaBtn = document.getElementById('next-poema');
 
-        // Función para mostrar un poema específico según su posición en la lista (index).
-        function mostrarPoema(index) {
-            if (todosLosPoemas.length === 0) return; // No hacer nada si no hay poemas.
+const leerManuscritoBtn = document.getElementById('leer-manuscrito-btn');
+const manuscritoContainer = document.getElementById('manuscrito-container');
 
-            const poema = todosLosPoemas[index];
-            poemaTituloEl.textContent = poema.titulo;
-            poemaTextoEl.textContent = poema.poema;
-            poemaAutorEl.textContent = `- ${poema.autor}`;
-        }
+function mostrarPoema(index) {
+    if (!todosLosPoemas || todosLosPoemas.length === 0) return;
 
-        // Pedimos los poemas al servidor en cuanto la página cargue.
-        fetch('/poemas')
-            .then(response => response.json())
-            .then(data => {
-                todosLosPoemas = data; // Guardamos la lista de poemas.
-                mostrarPoema(0); // Mostramos el primer poema.
-            })
-            .catch(error => {
-                console.error('Error al cargar los poemas:', error);
-                poemaTituloEl.textContent = "No pudimos cargar los poemas.";
-                poemaTextoEl.textContent = "Intenta refrescar la página.";
-            });
+    const poema = todosLosPoemas[index];
+    poemaTituloEl.textContent = poema.titulo;
+    poemaTextoEl.textContent = poema.poema;
+    poemaAutorEl.textContent = `- ${poema.autor}`;
+}
 
-        // Evento para el botón "siguiente".
-        nextPoemaBtn.addEventListener('click', () => {
-            // Aumentamos el índice, y si llegamos al final, volvemos al principio.
-            poemaActualIndex = (poemaActualIndex + 1) % todosLosPoemas.length;
-            mostrarPoema(poemaActualIndex);
-        });
+// Pedimos TODOS los datos (poemas y manuscrito) al servidor.
+fetch('/poemas')
+    .then(response => response.json())
+    .then(data => {
+        // Guardamos la lista de poemas.
+        todosLosPoemas = data.poemas;
+        mostrarPoema(0); // Mostramos el primer poema.
 
-        // Evento para el botón "anterior".
-        prevPoemaBtn.addEventListener('click', () => {
-            // Disminuimos el índice. Si estamos en el primero, vamos al último.
-            poemaActualIndex = (poemaActualIndex - 1 + todosLosPoemas.length) % todosLosPoemas.length;
-            mostrarPoema(poemaActualIndex);
-        });
+        // Rellenamos el contenido del manuscrito (que está oculto).
+        const queEsEl = document.querySelector('#manuscrito-que-es');
+        queEsEl.querySelector('h4').textContent = data.manuscrito.queEs.titulo;
+        queEsEl.querySelector('p').textContent = data.manuscrito.queEs.texto;
+
+        const porQueEl = document.querySelector('#manuscrito-por-que');
+        porQueEl.querySelector('h4').textContent = data.manuscrito.porQue.titulo;
+        porQueEl.querySelector('p').textContent = data.manuscrito.porQue.texto;
+    })
+    .catch(error => {
+        console.error('Error al cargar la sección de poemas:', error);
+        poemaTituloEl.textContent = "No pudimos cargar los poemas.";
+        poemaTextoEl.textContent = "Intenta refrescar la página.";
+    });
+
+// Eventos para el carrusel de poemas.
+nextPoemaBtn.addEventListener('click', () => {
+    poemaActualIndex = (poemaActualIndex + 1) % todosLosPoemas.length;
+    mostrarPoema(poemaActualIndex);
+});
+
+prevPoemaBtn.addEventListener('click', () => {
+    poemaActualIndex = (poemaActualIndex - 1 + todosLosPoemas.length) % todosLosPoemas.length;
+    mostrarPoema(poemaActualIndex);
+});
+
+// Evento para el botón "Leer Manuscrito".
+leerManuscritoBtn.addEventListener('click', (e) => {
+    e.preventDefault(); // Evita que el enlace recargue la página.
+    
+    // Muestra u oculta el contenedor del manuscrito.
+    if (manuscritoContainer.style.display === 'none') {
+        manuscritoContainer.style.display = 'block';
+        leerManuscritoBtn.textContent = 'Ocultar Manuscrito';
+    } else {
+        manuscritoContainer.style.display = 'none';
+        leerManuscritoBtn.textContent = 'Leer Manuscrito';
+    }
+});
     </script>
 </body>
 </html>
+
 
 
 
