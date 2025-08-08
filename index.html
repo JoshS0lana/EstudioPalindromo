@@ -112,27 +112,27 @@
             </div>
         </section>
 
-       <section id="dante-en-la-playa" class="seccion-contenido section-dante"
-    style="background: url('imagenes/fondodante.jpg') center center / cover fixed no-repeat;">
-    <div style="background-color: rgba(0, 0, 0, 0.6); padding: clamp(4rem, 10vw, 8rem) 0;">
-            <div class="container">
-                <div class="dante-grid-layout">
-                    <div class="dante-columna dante-info">
-                        <h2 class="titulo-dante">Dante <span class="subtitle-dante">en la playa del amor desenfrenado.</span></h2>
-                        <p class="logline">UN HOMBRE DESPIERTA CON RESACA EN UNA PLAYA DE BAJA CALIFORNIA SUR, DESCUBRIENDO QUE ESTÁ MUERTO Y ATRAPADO EN EL PURGATORIO. PARA ALCANZAR EL PARAÍSO, DEBE EMPRENDER UN VIAJE ESPIRITUAL A TRAVÉS DEL DESIERTO, GUIADO POR LAS MEMORIAS DE SU ABUELO Y LA ESPERANZA DE REENCONTRARSE CON SU AMADA BEATRIZ.</p>
-                        <div class="datos-proyecto"><p><strong>GÉNERO:</strong> Fantasía / Drama</p><p><strong>DURACIÓN:</strong> 33 MIN.</p></div>
-                    </div>
-                    <div class="dante-columna dante-tarot">
-                        <h3 class="tarot-subtitle">Una lectura para tu viaje.</h3>
-                        <div class="tarot-interactive-area">
-                            <img src="imagenes/mazo-tarot.png" alt="Mazo de Tarot" id="tarot-deck" class="tarot-deck-image">
-                            <button id="draw-tarot-btn" class="enlace-guion">Sacar una carta</button>
-                        </div>
-                        <div id="tarot-result-grid" class="tarot-grid"></div>
-                    </div>
-                </div>
+       <section id="dante-en-la-playa" class="seccion-contenido">
+    <div class="container dante-grid-layout">
+        <div class="dante-columna-texto">
+            <h2 class="titulo-dante">
+                Dante
+                <span class="subtitle-dante">en la playa del amor desenfrenado.</span>
+            </h2>
+            <p class="logline">
+                UN HOMBRE DESPIERTA CON RESACA EN UNA PLAYA DE BAJA CALIFORNIA SUR, DESCUBRIENDO QUE ESTÁ MUERTO Y ATRAPADO EN EL PURGATORIO. PARA ALCANZAR EL PARAÍSO, DEBE EMPRENDER UN VIAJE ESPIRITUAL A TRAVÉS DEL DESIERTO, GUIADO POR LAS MEMORIAS DE SU ABUELO Y LA ESPERANZA DE REENCONTRARSE CON SU AMADA BEATRIZ.
+            </p>
+            <p><strong>GÉNERO:</strong> Fantasía / Drama<br><strong>DURACIÓN:</strong> 33 Min.</p>
+        </div>
+        <div class="tarot-interactive-area">
+            <!-- El mazo se ha ido, las cartas aparecerán aquí abajo -->
+            <div id="tarot-result-grid">
+                <!-- Las cartas del tarot se insertarán aquí con JavaScript -->
             </div>
-        </section>
+             <p id="tarot-instruction" style="margin-top: 1rem; font-style: italic; opacity: 0.7;">Baja para revelar tu lectura...</p>
+        </div>
+    </div>
+</section>
 
         <section id="poemas-apestosos" class="seccion-contenido seccion-poemas">
     <div class="container">
@@ -147,10 +147,10 @@
         <!-- Controles de navegación de poemas -->
         <div class="poemas-nav" style="text-align: center; margin-bottom: 2.5rem;">
             <button id="prev-poema" class="poemas-nav-btn">
-                <img src="imagenes/caca.png" alt="Anterior" style="transform: scaleX(-1); width:50px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: #fff;"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
             <button id="next-poema" class="poemas-nav-btn">
-                <img src="imagenes/caca.png" alt="Siguiente" style="width:50px;">
+               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: #fff;"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
         </div>
 
@@ -192,180 +192,185 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            gsap.registerPlugin(ScrollTrigger);
-            
-            gsap.to(".sirena-img", { scrollTrigger: { trigger: ".hero-sirena", start: "top top", end: "bottom top", scrub: true }, scale: 1.2, ease: "none" });
+    document.addEventListener('DOMContentLoaded', () => {
+    // --- LÓGICA PARA EL SLIDER DE "SOBRE NOSOTROS" ---
+    const slides = document.querySelector('.slides');
+    const dots = document.querySelectorAll('.dot');
+    let currentIndex = 0;
 
-            const slidesContainer = document.querySelector('.slides');
-            const slideDots = document.querySelectorAll('.slider-nav .dot');
-            if (slidesContainer && slideDots.length > 0) {
-                slideDots.forEach(dot => {
-                    dot.addEventListener('click', () => {
-                        const slideIndex = parseInt(dot.getAttribute('data-slide'));
-                        slidesContainer.style.transform = `translateX(-${slideIndex * (100 / 3)}%)`;
-                        slideDots.forEach(d => d.classList.remove('active'));
-                        dot.classList.add('active');
-                    });
-                });
-            }
-
-            const galletaTrigger = document.getElementById('galleta-anim-trigger');
-            if (galletaTrigger) {
-                const frames = galletaTrigger.querySelectorAll(".galleta-secuencia");
-                const fortunaPapel = galletaTrigger.querySelector('.fortuna-papel');
-                gsap.set(frames, { autoAlpha: 0 });
-                gsap.set(frames[0], { autoAlpha: 1 });
-                gsap.set(fortunaPapel, { autoAlpha: 0, scale: 0.8 });
-
-                const tlCookie = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: "#la-fortuna",
-                        start: "top center",
-                        onEnter: () => tlCookie.play(),
-                        once: true
-                    },
-                    paused: true
-                });
-
-                const frameCount = frames.length;
-                const step = 1 / frameCount;
-                frames.forEach((frame, i) => {
-                    if (i > 0) tlCookie.set(frames[i - 1], { autoAlpha: 0 }, i * step);
-                    tlCookie.set(frames[i], { autoAlpha: 1 }, i * step);
-                });
-                tlCookie.to(fortunaPapel, { autoAlpha: 1, scale: 1, ease: 'back.out(1.7)' }, 1 - step);
-            }
-            
-            const fortuneModal = document.getElementById('fortune-modal');
-            const openFortuneModalBtn = document.getElementById('open-fortune-modal-btn');
-            const closeFortuneModalBtn = document.getElementById('fortune-modal-close');
-            const subscribeForm = document.getElementById('subscribe-form');
-            
-            if(openFortuneModalBtn) openFortuneModalBtn.addEventListener('click', () => fortuneModal.classList.add('visible'));
-            if(closeFortuneModalBtn) closeFortuneModalBtn.addEventListener('click', () => fortuneModal.classList.remove('visible'));
-            
-            if(subscribeForm) {
-                subscribeForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    const contactInput = document.getElementById('contact-input');
-                    const formMessage = document.getElementById('form-message');
-                    const submitBtn = document.getElementById('subscribe-and-generate-btn');
-
-                    submitBtn.disabled = true;
-                    submitBtn.textContent = 'Guardando...';
-                    formMessage.textContent = '';
-
-                    try {
-                        const subResponse = await fetch('/api/subscribe', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ contact: contactInput.value }),
-                        });
-
-                        if (!subResponse.ok) throw new Error('Error al registrar el contacto.');
-                        
-                        fortuneModal.classList.remove('visible');
-                        await generateFortune();
-
-                    } catch (error) {
-                        formMessage.textContent = 'Hubo un error. Inténtalo de nuevo.';
-                        console.error(error);
-                    } finally {
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = 'Obtener Fortuna';
-                    }
-                });
-            }
-
-            // El resto del JS sin cambios
-            const tarotCardsData = [ { name: "El Viaje Desolado", image: "imagenes/tarot-1.png", interpretation: "El viaje inicia con abandono, dejando atrás lo que ya no sirve." }, { name: "La Soledad del Desierto", image: "imagenes/tarot-2.jpg", interpretation: "La soledad y aridez subrayan un aislamiento sin guía espiritual." }, { name: "La Ascensión", image: "imagenes/tarot-3.jpeg", interpretation: "Una revelación forzosa que impulsa a emprender la redención." }, { name: "El Paraíso", image: "imagenes/tarot-4.jpg", interpretation: "La culminación del viaje, un reencuentro que trae paz y gracia." } ];
-            const drawTarotBtn = document.getElementById('draw-tarot-btn');
-            const tarotResultGrid = document.getElementById('tarot-result-grid');
-            const tarotModal = document.getElementById('tarot-modal');
-            const tarotDeck = document.getElementById('tarot-deck');
-            if(drawTarotBtn && tarotResultGrid && tarotModal && tarotDeck) { let drawnCards = 0; const drawCard = () => { if (drawnCards >= tarotCardsData.length) return; const cardData = tarotCardsData[drawnCards]; const cardElement = document.createElement('img'); cardElement.src = cardData.image; cardElement.alt = cardData.name; cardElement.className = 'tarot-card'; cardElement.addEventListener('click', () => { document.getElementById('tarot-modal-img').src = cardData.image; document.getElementById('tarot-modal-title').innerText = cardData.name; document.getElementById('tarot-modal-text').innerText = cardData.interpretation; tarotModal.classList.add('visible'); }); tarotResultGrid.appendChild(cardElement); gsap.from(cardElement, { opacity: 0, y: 50, duration: 0.5 }); drawnCards++; if (drawnCards >= tarotCardsData.length) { drawTarotBtn.innerText = 'Lectura Completa'; drawTarotBtn.disabled = true; gsap.to([drawTarotBtn, tarotDeck], {autoAlpha: 0.5, duration: 0.5}); } }; drawTarotBtn.addEventListener('click', drawCard); tarotDeck.addEventListener('click', drawCard); const tarotModalClose = tarotModal.querySelector('.tarot-modal-close'); if(tarotModalClose) tarotModalClose.addEventListener('click', () => tarotModal.classList.remove('visible')); }
-            const poemasContainer = document.getElementById('poemas-explicacion-container');
-            const poemasNextBtn = document.getElementById('poemas-next-btn');
-            const manuscritoBtn = document.getElementById('leer-manuscrito-btn');
-            if (poemasContainer && poemasNextBtn && manuscritoBtn) { const textosPoemas = [ `<h4>¿Qué es un poema apestoso?</h4><p>Un poema apestoso es un poema que no teme ensuciarse, que juega con lo grotesco, lo absurdo y lo cotidiano. Son versos que huelen a infancia, a travesura y a libertad creativa.</p>`, `<h4>¿Por qué un poema apestoso?</h4><p>Porque la poesía también puede reírse de sí misma, romper las reglas y celebrar lo imperfecto. Un poema apestoso es una invitación a escribir sin miedo al ridículo, a encontrar belleza en lo inesperado.</p>` ]; let currentPoemaIndex = 0; manuscritoBtn.style.display = 'none'; function showPoemaSlide(index) { const slideHTML = textosPoemas[index]; gsap.to(poemasContainer, { autoAlpha: 0, duration: 0.3, onComplete: () => { poemasContainer.innerHTML = slideHTML; gsap.to(poemasContainer, { autoAlpha: 1, duration: 0.3 }); } }); const isLastSlide = index === textosPoemas.length - 1; gsap.to(poemasNextBtn, { autoAlpha: isLastSlide ? 0 : 1, duration: 0.3, pointerEvents: isLastSlide ? 'none' : 'auto' }); gsap.to(manuscritoBtn, { autoAlpha: isLastSlide ? 1 : 0, display: isLastSlide ? 'inline-block' : 'none', duration: 0.3 }); } poemasNextBtn.addEventListener('click', () => { currentPoemaIndex = (currentPoemaIndex + 1) % textosPoemas.length; showPoemaSlide(currentPoemaIndex); }); showPoemaSlide(0); }
+    function updateSlider() {
+        slides.style.transform = `translateX(-${currentIndex * 100 / 3}%)`;
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
         });
+    }
 
-        async function generateFortune() { const fortunePaper = document.querySelector('.fortuna-papel'); const openFortuneBtn = document.getElementById('open-fortune-modal-btn'); openFortuneBtn.disabled = true; fortunePaper.innerText = 'Generando...'; try { const response = await fetch('/api/generate-fortune', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: `Eres un escritor de galletas de la fortuna para un guion de cine. Genera una fortuna poética, misteriosa y ligeramente melancólica en una sola oración concisa en español. No incluyas comillas.` }), }); if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); const data = await response.json(); gsap.to(fortunePaper, { opacity: 0, duration: 0.3, onComplete: () => { fortunePaper.innerText = data.fortune; gsap.to(fortunePaper, { opacity: 1, duration: 0.5, ease: "power2.out" }); } }); } catch (error) { console.error('Error al generar la fortuna:', error); fortunePaper.innerText = "El destino está nublado hoy."; gsap.to(fortunePaper, { opacity: 1, duration: 0.5 }); } finally { openFortuneBtn.disabled = false; } }
-         
-        // --- LÓGICA PARA POEMAS APESTOSOS ---
-        
-let todosLosPoemas = [];
-let poemaActualIndex = 0;
-
-const poemaTituloEl = document.getElementById('poema-titulo');
-const poemaTextoEl = document.getElementById('poema-texto');
-const poemaAutorEl = document.getElementById('poema-autor');
-const prevPoemaBtn = document.getElementById('prev-poema');
-const nextPoemaBtn = document.getElementById('next-poema');
-
-const leerManuscritoBtn = document.getElementById('leer-manuscrito-btn');
-const manuscritoContainer = document.getElementById('manuscrito-container');
-
-function mostrarPoema(index) {
-    if (!todosLosPoemas || todosLosPoemas.length === 0) return;
-
-    const poema = todosLosPoemas[index];
-    poemaTituloEl.textContent = poema.titulo;
-    poemaTextoEl.textContent = poema.poema;
-    poemaAutorEl.textContent = `- ${poema.autor}`;
-}
-
-// Pedimos TODOS los datos (poemas y manuscrito) al servidor.
-fetch('/poemas')
-    .then(response => response.json())
-    .then(data => {
-        // Guardamos la lista de poemas.
-        todosLosPoemas = data.poemas;
-        mostrarPoema(0); // Mostramos el primer poema.
-
-        // Rellenamos el contenido del manuscrito (que está oculto).
-        const queEsEl = document.querySelector('#manuscrito-que-es');
-        queEsEl.querySelector('h4').textContent = data.manuscrito.queEs.titulo;
-        queEsEl.querySelector('p').textContent = data.manuscrito.queEs.texto;
-
-        const porQueEl = document.querySelector('#manuscrito-por-que');
-        porQueEl.querySelector('h4').textContent = data.manuscrito.porQue.titulo;
-        porQueEl.querySelector('p').textContent = data.manuscrito.porQue.texto;
-    })
-    .catch(error => {
-        console.error('Error al cargar la sección de poemas:', error);
-        poemaTituloEl.textContent = "No pudimos cargar los poemas.";
-        poemaTextoEl.textContent = "Intenta refrescar la página.";
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentIndex = index;
+            updateSlider();
+        });
     });
 
-// Eventos para el carrusel de poemas.
-nextPoemaBtn.addEventListener('click', () => {
-    poemaActualIndex = (poemaActualIndex + 1) % todosLosPoemas.length;
-    mostrarPoema(poemaActualIndex);
-});
-
-prevPoemaBtn.addEventListener('click', () => {
-    poemaActualIndex = (poemaActualIndex - 1 + todosLosPoemas.length) % todosLosPoemas.length;
-    mostrarPoema(poemaActualIndex);
-});
-
-// Evento para el botón "Leer Manuscrito".
-leerManuscritoBtn.addEventListener('click', (e) => {
-    e.preventDefault(); // Evita que el enlace recargue la página.
+    // --- LÓGICA PARA LA GALLETA DE LA FORTUNA ---
+    const generarFortunaBtn = document.getElementById('generar-fortuna-btn');
+    const galletaImg = document.getElementById('galleta-secuencia-img');
+    const fortunaPapel = document.getElementById('fortuna-papel-texto');
+    const modal = document.getElementById('contact-modal');
+    const closeModalBtn = document.querySelector('.modal-close');
     
-    // Muestra u oculta el contenedor del manuscrito.
-    if (manuscritoContainer.style.display === 'none') {
-        manuscritoContainer.style.display = 'block';
-        leerManuscritoBtn.textContent = 'Ocultar Manuscrito';
-    } else {
-        manuscritoContainer.style.display = 'none';
-        leerManuscritoBtn.textContent = 'Leer Manuscrito';
+    let fortunaGratisConcedida = false; // <-- NUEVA BANDERA
+    let animacionEnCurso = false;
+
+    function obtenerNuevaFortuna() {
+        if (animacionEnCurso) return;
+        animacionEnCurso = true;
+
+        let frame = 1;
+        const totalFrames = 8;
+        galletaImg.src = `imagenes/galleta-01.png`;
+        fortunaPapel.parentElement.style.display = 'none';
+
+        const interval = setInterval(() => {
+            frame++;
+            if (frame <= totalFrames) {
+                galletaImg.src = `imagenes/galleta-0${frame}.png`;
+            } else {
+                clearInterval(interval);
+                fetch('/fortuna')
+                    .then(response => response.json())
+                    .then(data => {
+                        fortunaPapel.textContent = data.fortuna;
+                        fortunaPapel.parentElement.style.display = 'block';
+                        animacionEnCurso = false;
+                    }).catch(() => animacionEnCurso = false);
+            }
+        }, 100);
     }
+
+    generarFortunaBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!fortunaGratisConcedida) {
+            obtenerNuevaFortuna();
+            fortunaGratisConcedida = true; // Marcamos que la fortuna gratis ya se dio.
+        } else {
+            modal.classList.add('visible'); // A partir de la segunda vez, mostramos el modal.
+        }
+    });
+
+    closeModalBtn.addEventListener('click', () => modal.classList.remove('visible'));
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('visible');
+        }
+    });
+
+    // --- LÓGICA PARA EL TAROT DE DANTE (CON SCROLL) ---
+    const tarotResultGrid = document.getElementById('tarot-result-grid');
+    const danteSection = document.getElementById('dante-en-la-playa');
+    let tarotYaRevelado = false; // Para asegurar que se active una sola vez.
+
+    function getTarotReading() {
+        if (tarotYaRevelado) return; // Si ya se cargó, no hacer nada.
+        tarotYaRevelado = true;
+
+        fetch('/tarot')
+            .then(response => response.json())
+            .then(cartas => {
+                tarotResultGrid.innerHTML = ''; // Limpiar por si acaso
+                document.getElementById('tarot-instruction').style.display = 'none'; // Ocultar instrucción
+                
+                cartas.forEach((carta, index) => {
+                    const cardElement = document.createElement('img');
+                    cardElement.src = carta.imagenUrl;
+                    cardElement.alt = carta.nombre;
+                    cardElement.title = `${carta.nombre}: ${carta.significado}`;
+                    cardElement.classList.add('tarot-card');
+                    cardElement.style.opacity = '0';
+                    cardElement.style.transform = 'translateY(20px)';
+                    cardElement.style.transition = `opacity 0.5s ease ${index * 0.3}s, transform 0.5s ease ${index * 0.3}s`;
+                    tarotResultGrid.appendChild(cardElement);
+
+                    // Forzar el repintado del navegador y luego aplicar la transición
+                    setTimeout(() => {
+                        cardElement.style.opacity = '1';
+                        cardElement.style.transform = 'translateY(0)';
+                    }, 50);
+                });
+            })
+            .catch(error => console.error('Error al obtener la lectura del tarot:', error));
+    }
+
+    // Creamos el "sensor" (Intersection Observer)
+    const tarotObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            // Si la sección de Dante es visible en la pantalla...
+            if (entry.isIntersecting) {
+                getTarotReading(); // ...obtenemos la lectura.
+                observer.unobserve(entry.target); // Y apagamos el sensor para que no se repita.
+            }
+        });
+    }, { threshold: 0.4 }); // Se activa cuando el 40% de la sección es visible
+
+    // Le decimos al sensor que vigile la sección de Dante.
+    tarotObserver.observe(danteSection);
+
+
+    // --- LÓGICA PARA POEMAS APESTOSOS ---
+    let todosLosPoemas = [];
+    let poemaActualIndex = 0;
+    const poemaTituloEl = document.getElementById('poema-titulo');
+    const poemaTextoEl = document.getElementById('poema-texto');
+    const poemaAutorEl = document.getElementById('poema-autor');
+    const prevPoemaBtn = document.getElementById('prev-poema');
+    const nextPoemaBtn = document.getElementById('next-poema');
+    const leerManuscritoBtn = document.getElementById('leer-manuscrito-btn');
+    const manuscritoContainer = document.getElementById('manuscrito-container');
+
+    function mostrarPoema(index) {
+        if (!todosLosPoemas || todosLosPoemas.length === 0) return;
+        const poema = todosLosPoemas[index];
+        poemaTituloEl.textContent = poema.titulo;
+        poemaTextoEl.textContent = poema.poema;
+        poemaAutorEl.textContent = `- ${poema.autor}`;
+    }
+
+    fetch('/poemas')
+        .then(response => response.json())
+        .then(data => {
+            todosLosPoemas = data.poemas;
+            mostrarPoema(0);
+            const queEsEl = document.querySelector('#manuscrito-que-es');
+            queEsEl.querySelector('h4').textContent = data.manuscrito.queEs.titulo;
+            queEsEl.querySelector('p').textContent = data.manuscrito.queEs.texto;
+            const porQueEl = document.querySelector('#manuscrito-por-que');
+            porQueEl.querySelector('h4').textContent = data.manuscrito.porQue.titulo;
+            porQueEl.querySelector('p').textContent = data.manuscrito.porQue.texto;
+        })
+        .catch(error => {
+            console.error('Error al cargar la sección de poemas:', error);
+        });
+
+    nextPoemaBtn.addEventListener('click', () => {
+        poemaActualIndex = (poemaActualIndex + 1) % todosLosPoemas.length;
+        mostrarPoema(poemaActualIndex);
+    });
+    prevPoemaBtn.addEventListener('click', () => {
+        poemaActualIndex = (poemaActualIndex - 1 + todosLosPoemas.length) % todosLosPoemas.length;
+        mostrarPoema(poemaActualIndex);
+    });
+    leerManuscritoBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isHidden = manuscritoContainer.style.display === 'none';
+        manuscritoContainer.style.display = isHidden ? 'block' : 'none';
+        leerManuscritoBtn.textContent = isHidden ? 'Ocultar Manuscrito' : 'Leer Manuscrito';
+    });
 });
+
     </script>
 </body>
 </html>
+
 
 
 
