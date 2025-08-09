@@ -125,7 +125,7 @@
                             <span class="subtitle-dante">en la playa del amor desenfrenado.</span>
                         </h2>
                         <p class="logline">
-                            UN HOMBRE DESPIERTA CON RESACA EN UNA PLAYA DE BAJA CALIFORNIA SUR, DESCUBRIENDO QUE ESTÁ MUERTO Y ATRAPADO EN EL PURGATORIO. PARA ALCANZAR EL PARAÍSO, DEBE EMPRENDER UN VIAJE ESPIRITUAL A TRAVÉS DEL DESIERTO, GUIADO POR LAS MEMORias DE SU ABUELO Y LA ESPERANZA DE REENCONTRARSE CON SU AMADA BEATRIZ.
+                            UN HOMBRE DESPIERTA CON RESACA EN UNA PLAYA DE BAJA CALIFORNIA SUR, DESCUBRIENDO QUE ESTÁ MUERTO Y ATRAPADO EN EL PURGATORIO. PARA ALCANZAR EL PARAÍSO, DEBE EMPRENDER UN VIAJE ESPIRITUAL A TRAVÉS DEL DESIERTO, GUIADO POR LAS MEMORIAS DE SU ABUELO Y LA ESPERANZA DE REENCONTRARSE CON SU AMADA BEATRIZ.
                         </p>
                         <p><strong>GÉNERO:</strong> Fantasía / Drama<br><strong>DURACIÓN:</strong> 33 Min.</p>
                     </div>
@@ -192,6 +192,61 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
+
+        // ==================================================================
+        // --- DATOS LOCALES (REEMPLAZAN LAS LLAMADAS AL SERVIDOR) ---
+        // ==================================================================
+
+        const datosPoemas = {
+            poemas: [
+                {
+                    titulo: "Oda al Calcetín Perdido",
+                    autor: "Anónimo Desparejado",
+                    poema: "En el abismo del cesto te busqué,\nentre sábanas y calzones me asomé.\n¿Dónde estás, mi fiel compañero?\nSeguro te tragó el agujero negro del lavadero."
+                },
+                {
+                    titulo: "El Chicle Inmortal",
+                    autor: "Filósofo de la Acera",
+                    poema: "Pegado al suelo, ves pasar la vida,\nsoportas lluvias, sol y mil pisadas.\nEres más duro que político en campaña,\ny más eterno que la deuda de España."
+                },
+                {
+                    titulo: "Lamento del Wi-Fi Caído",
+                    autor: "El Náufrago Digital",
+                    poema: "Una barra, ninguna, parpadeas sin fin.\nMi mundo se detiene, oh, trágico confín.\nSin memes, sin series, sin luz en mi existir,\n¡vuelve, señal divina, o voy a sucumbir!"
+                }
+            ],
+            manuscrito: {
+                queEs: {
+                    titulo: "¿Qué es un poema apestoso?",
+                    texto: "Es un verso sin vergüenza, un juego de palabras que prefiere la carcajada a la métrica. Nace de la observación cotidiana, de lo absurdo y lo irreverente. No busca la inmortalidad en una antología, sino una sonrisa cómplice."
+                },
+                porQue: {
+                    titulo: "¿Por qué un poema apestoso?",
+                    texto: "Porque la poesía también puede reírse de sí misma, quitarse el corsé y celebrar lo imperfecto. Un poema apestoso es una invitación a escribir sin miedo al ridículo, a encontrar una belleza extraña y divertida en lo inesperado."
+                }
+            }
+        };
+
+        const datosFortunas = [
+            "Tu guion será tan bueno que hasta Netflix te pedirá una segunda temporada.",
+            "Esa idea que tienes en la cabeza vale oro. No la dejes escapar.",
+            "Pronto recibirás una llamada inesperada de un productor. Prepárate.",
+            "El bloqueo del escritor se irá tan rápido como llegó. Confía en el proceso.",
+            "Tu próximo cortometraje ganará un premio en un festival inesperado."
+        ];
+
+        const datosTarot = [
+            { nombre: "El Loco", significado: "Nuevos comienzos, fe en el futuro.", imagenUrl: "imagenes/tarot-1.png" },
+            { nombre: "La Emperatriz", significado: "Creatividad, abundancia, fertilidad.", imagenUrl: "imagenes/tarot-2.jpg" },
+            { nombre: "El Ermitaño", significado: "Introspección, búsqueda de la verdad.", imagenUrl: "imagenes/tarot-3.jpeg" },
+            { nombre: "La Rueda de la Fortuna", significado: "Cambio, ciclos, destino.", imagenUrl: "imagenes/tarot-4.jpg" }
+        ];
+
+
+        // ==================================================================
+        // --- LÓGICAS DE LA PÁGINA ---
+        // ==================================================================
+
         // --- LÓGICA PARA EL SLIDER DE "SOBRE NOSOTROS" ---
         const slides = document.querySelector('.slides');
         const dots = document.querySelectorAll('.dot');
@@ -239,15 +294,13 @@
                         galletaImg.src = `imagenes/galleta-0${frame}.png`;
                     } else {
                         clearInterval(interval);
-                        fetch('fortuna') // FIX: Removed leading slash
-                            .then(response => response.json())
-                            .then(data => {
-                                fortunaPapel.textContent = data.fortuna;
-                                if (fortunaPapel.parentElement) {
-                                    fortunaPapel.parentElement.style.display = 'block';
-                                }
-                                animacionEnCurso = false;
-                            }).catch(() => animacionEnCurso = false);
+                        // AHORA USA LOS DATOS LOCALES
+                        const fortunaAleatoria = datosFortunas[Math.floor(Math.random() * datosFortunas.length)];
+                        fortunaPapel.textContent = fortunaAleatoria;
+                        if (fortunaPapel.parentElement) {
+                            fortunaPapel.parentElement.style.display = 'block';
+                        }
+                        animacionEnCurso = false;
                     }
                 }, 100);
             }
@@ -280,30 +333,29 @@
                 if (tarotYaRevelado) return;
                 tarotYaRevelado = true;
 
-                fetch('tarot') // FIX: Removed leading slash
-                    .then(response => response.json())
-                    .then(cartas => {
-                        tarotResultGrid.innerHTML = '';
-                        tarotInstruction.style.display = 'none';
-                        
-                        cartas.forEach((carta, index) => {
-                            const cardElement = document.createElement('img');
-                            cardElement.src = carta.imagenUrl;
-                            cardElement.alt = carta.nombre;
-                            cardElement.title = `${carta.nombre}: ${carta.significado}`;
-                            cardElement.classList.add('tarot-card');
-                            cardElement.style.opacity = '0';
-                            cardElement.style.transform = 'translateY(20px)';
-                            cardElement.style.transition = `opacity 0.5s ease ${index * 0.3}s, transform 0.5s ease ${index * 0.3}s`;
-                            tarotResultGrid.appendChild(cardElement);
+                // AHORA USA LOS DATOS LOCALES
+                const barajado = datosTarot.sort(() => 0.5 - Math.random());
+                const seleccion = barajado.slice(0, 3);
 
-                            setTimeout(() => {
-                                cardElement.style.opacity = '1';
-                                cardElement.style.transform = 'translateY(0)';
-                            }, 50);
-                        });
-                    })
-                    .catch(error => console.error('Error al obtener la lectura del tarot:', error));
+                tarotResultGrid.innerHTML = '';
+                tarotInstruction.style.display = 'none';
+                
+                seleccion.forEach((carta, index) => {
+                    const cardElement = document.createElement('img');
+                    cardElement.src = carta.imagenUrl;
+                    cardElement.alt = carta.nombre;
+                    cardElement.title = `${carta.nombre}: ${carta.significado}`;
+                    cardElement.classList.add('tarot-card');
+                    cardElement.style.opacity = '0';
+                    cardElement.style.transform = 'translateY(20px)';
+                    cardElement.style.transition = `opacity 0.5s ease ${index * 0.3}s, transform 0.5s ease ${index * 0.3}s`;
+                    tarotResultGrid.appendChild(cardElement);
+
+                    setTimeout(() => {
+                        cardElement.style.opacity = '1';
+                        cardElement.style.transform = 'translateY(0)';
+                    }, 50);
+                });
             }
 
             const tarotObserver = new IntersectionObserver((entries, observer) => {
@@ -328,7 +380,8 @@
         const manuscritoContainer = document.getElementById('manuscrito-container');
 
         if (poemaTituloEl && poemaTextoEl && poemaAutorEl && prevPoemaBtn && nextPoemaBtn && leerManuscritoBtn && manuscritoContainer) {
-            let todosLosPoemas = [];
+            // AHORA USA LOS DATOS LOCALES
+            const todosLosPoemas = datosPoemas.poemas;
             let poemaActualIndex = 0;
 
             function mostrarPoema(index) {
@@ -338,28 +391,19 @@
                 poemaTextoEl.textContent = poema.poema;
                 poemaAutorEl.textContent = `- ${poema.autor}`;
             }
-
-            fetch('poemas') // FIX: Removed leading slash
-                .then(response => response.json())
-                .then(data => {
-                    todosLosPoemas = data.poemas;
-                    mostrarPoema(0);
-                    
-                    const queEsEl = document.querySelector('#manuscrito-que-es');
-                    if (queEsEl) {
-                        queEsEl.querySelector('h4').textContent = data.manuscrito.queEs.titulo;
-                        queEsEl.querySelector('p').textContent = data.manuscrito.queEs.texto;
-                    }
-
-                    const porQueEl = document.querySelector('#manuscrito-por-que');
-                    if (porQueEl) {
-                        porQueEl.querySelector('h4').textContent = data.manuscrito.porQue.titulo;
-                        porQueEl.querySelector('p').textContent = data.manuscrito.porQue.texto;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error al cargar la sección de poemas:', error);
-                });
+            
+            // Mostrar el primer poema y rellenar el manuscrito
+            mostrarPoema(0);
+            const queEsEl = document.querySelector('#manuscrito-que-es');
+            if (queEsEl) {
+                queEsEl.querySelector('h4').textContent = datosPoemas.manuscrito.queEs.titulo;
+                queEsEl.querySelector('p').textContent = datosPoemas.manuscrito.queEs.texto;
+            }
+            const porQueEl = document.querySelector('#manuscrito-por-que');
+            if (porQueEl) {
+                porQueEl.querySelector('h4').textContent = datosPoemas.manuscrito.porQue.titulo;
+                porQueEl.querySelector('p').textContent = datosPoemas.manuscrito.porQue.texto;
+            }
 
             nextPoemaBtn.addEventListener('click', () => {
                 poemaActualIndex = (poemaActualIndex + 1) % todosLosPoemas.length;
