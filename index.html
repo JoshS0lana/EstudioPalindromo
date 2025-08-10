@@ -88,10 +88,10 @@
                             </div>
                             <div class="about-column about-media">
                                 <div class="instagram-grid">
-                                    <a href="#" target="_blank" class="grid-item"><img src="imagenes/insta-sam-01.jpg" alt="Publicación de Instagram 1"></a>
-                                    <a href="#" target="_blank" class="grid-item"><img src="imagenes/insta-sam-02.jpg" alt="Publicación de Instagram 2"></a>
-                                    <a href="#" target="_blank" class="grid-item"><img src="imagenes/insta-sam-03.jpg" alt="Publicación de Instagram 3"></a>
-                                    <a href="#" target="_blank" class="grid-item"><img src="imagenes/insta-sam-04.jpg" alt="Publicación de Instagram 4"></a>
+                                    <a href="https://www.instagram.com/p/C0q5L1buEaF/" target="_blank" class="grid-item"><img src="imagenes/insta-sam-01.jpg" alt="Publicación de Instagram 1"></a>
+                                    <a href="https://www.instagram.com/p/C0f9ZJEOc_C/" target="_blank" class="grid-item"><img src="imagenes/insta-sam-02.jpg" alt="Publicación de Instagram 2"></a>
+                                    <a href="https://www.instagram.com/p/C0f9NJ0uGjS/" target="_blank" class="grid-item"><img src="imagenes/insta-sam-03.jpg" alt="Publicación de Instagram 3"></a>
+                                    <a href="https://www.instagram.com/p/C0q5XFkOM4h/" target="_blank" class="grid-item"><img src="imagenes/insta-sam-04.jpg" alt="Publicación de Instagram 4"></a>
                                 </div>
                             </div>
                         </div>
@@ -200,7 +200,7 @@
 
         <section id="poemas-apestosos" class="seccion-contenido seccion-poemas">
             <div class="container">
-                <h2>Y UN PAR DE COCHINADAS MÁS.</h2>
+                <h2 class="titulo-dorado">Y UN PAR DE COCHINADAS MÁS.</h2>
                 <div id="poema-display" class="dark-container" style="margin-bottom: 1rem;">
                     <h3 id="poema-titulo" class="titulo-dorado">Cargando poema...</h3>
                     <p id="poema-texto" style="white-space: pre-wrap; margin-top: 1rem; margin-bottom: 1.5rem; min-height: 150px;"></p>
@@ -248,7 +248,7 @@
             <p>Para descubrir otro destino, por favor deja tu correo o tu Instagram.</p>
             <form id="email-form">
                 <input type="text" id="email-input" placeholder="correo@ejemplo.com o @usuario" required>
-                <button type="submit">Generar Fortuna</button>
+                <button type="submit" class="enlace-guion">Generar Fortuna</button>
             </form>
         </div>
     </div>
@@ -272,8 +272,8 @@
             gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
             // --- ANIMACIÓN HERO ---
-            gsap.to(".sirena-img", { scale: 1, ease: "none", scrollTrigger: { trigger: ".hero-sirena", start: "top top", end: "bottom top", scrub: 1.5 } });
-            gsap.from(".titulo-hero", { opacity: 0, scale: 0.8, ease: "power2.out", scrollTrigger: { trigger: ".hero-sirena", start: "top center", end: "center center", scrub: 1.5 } });
+            gsap.to(".sirena-img", { scale: 1.1, ease: "none", scrollTrigger: { trigger: ".hero-sirena", start: "top top", end: "bottom top", scrub: 1.5 } });
+            gsap.from(".titulo-hero", { opacity: 0, y: 50, ease: "power2.out", scrollTrigger: { trigger: ".hero-sirena", start: "top center", end: "center center", scrub: 1.5 } });
 
             // --- SLIDER 'SOBRE NOSOTROS' ---
             const slides = document.querySelector('.slides');
@@ -283,18 +283,17 @@
                 dots.forEach(dot => {
                     dot.addEventListener('click', () => {
                         const slideIndex = dot.getAttribute('data-slide');
-                        slides.style.transform = `translateX(-${slideIndex * 100 / slideCount}%)`;
+                        slides.style.transform = `translateX(-${slideIndex * (100 / slideCount)}%)`;
                         dots.forEach(d => d.classList.remove('active'));
                         dot.classList.add('active');
                         document.querySelectorAll('.slide').forEach((slide, index) => {
-                            slide.classList.remove('active');
-                            if(index == slideIndex) slide.classList.add('active');
-                        })
+                            slide.classList.toggle('active', index == slideIndex);
+                        });
                     });
                 });
             }
 
-            // --- 'LA FORTUNA' ANIMATION ---
+            // --- 'LA FORTUNA' ANIMATION & SLIDESHOW ---
             const galletaTrigger = document.getElementById('galleta-anim-trigger');
             if (galletaTrigger) {
                 const frames = galletaTrigger.querySelectorAll(".galleta-secuencia");
@@ -302,7 +301,7 @@
                 const fortunaPapel = galletaTrigger.querySelector('.fortuna-papel');
                 gsap.set(frames, { autoAlpha: 0 });
                 gsap.set(frames[0], { autoAlpha: 1 });
-                gsap.set(fortunaPapel, { autoAlpha: 0 });
+                gsap.set(fortunaPapel, { autoAlpha: 0, scale: 0.8 });
 
                 const tlCookie = gsap.timeline({
                     scrollTrigger: {
@@ -313,12 +312,12 @@
                     }
                 });
 
-                const step = 1 / frameCount;
+                const step = 1 / (frameCount + 1);
                 frames.forEach((frame, i) => {
                     if (i > 0) tlCookie.set(frames[i - 1], { autoAlpha: 0 }, i * step);
                     tlCookie.set(frame, { autoAlpha: 1 }, i * step);
                 });
-                tlCookie.to(fortunaPapel, { autoAlpha: 1 }, 1-step);
+                tlCookie.to(fortunaPapel, { autoAlpha: 1, scale: 1 }, 1 - step);
             }
 
             const backgroundImages = [ 'imagenes/fortuna-imagen-1.jpg', 'imagenes/fortuna-imagen-2.jpg', 'imagenes/fortuna-imagen-3.jpg', 'imagenes/fortuna-imagen-4.jpg', 'imagenes/fortuna-imagen-5.jpg' ];
@@ -334,12 +333,13 @@
                         opacity: 0, duration: 1,
                         onComplete: () => {
                             fortunaBackgroundSlideshow.style.backgroundImage = `url('${backgroundImages[currentBackgroundIndex]}')`;
-                            gsap.to(fortunaBackgroundSlideshow, { opacity: 1, duration: 1 });
+                            gsap.to(fortunaBackgroundSlideshow, { opacity: 0.4, duration: 1 });
                         }
                     });
                 }, 5000);
             }
             
+            // --- MODAL Y BOTÓN DE FORTUNA ---
             const generateFortuneBtn = document.getElementById('generate-fortune-btn');
             const emailModal = document.getElementById('email-modal');
             if (emailModal) {
@@ -351,6 +351,9 @@
                  if (closeModalBtn) {
                     closeModalBtn.addEventListener('click', () => emailModal.classList.remove('visible'));
                  }
+                  modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.classList.remove('visible');
+                });
                  if (emailForm) {
                     emailForm.addEventListener('submit', (event) => {
                         event.preventDefault();
@@ -360,13 +363,12 @@
                  }
             }
 
-
             // --- LÓGICA TAROT ---
             const tarotCardsData = [
-                { name: "Carta 1: El Viaje Desolado", image: "imagenes/tarot-1.png", interpretation: "El viaje inicia con abandono, dejando atrás lo que ya no sirve." },
-                { name: "Carta 2: La Soledad del Desierto", image: "imagenes/tarot-2.jpg", interpretation: "La soledad y aridez subrayan un aislamiento sin guía espiritual." },
-                { name: "Carta 3: La Ascensión", image: "imagenes/tarot-3.jpeg", interpretation: "Una revelación forzosa que impulsa a emprender la redención." },
-                { name: "Carta 4: El Paraíso", image: "imagenes/tarot-4.jpg", interpretation: "La culminación del viaje, un reencuentro que trae paz y gracia." }
+                { name: "El Viaje Desolado", image: "imagenes/tarot-1.png", interpretation: "El viaje inicia con abandono, dejando atrás lo que ya no sirve." },
+                { name: "La Soledad del Desierto", image: "imagenes/tarot-2.jpg", interpretation: "La soledad y aridez subrayan un aislamiento sin guía espiritual." },
+                { name: "La Ascensión", image: "imagenes/tarot-3.jpeg", interpretation: "Una revelación forzosa que impulsa a emprender la redención." },
+                { name: "El Paraíso", image: "imagenes/tarot-4.jpg", interpretation: "La culminación del viaje, un reencuentro que trae paz y gracia." }
             ];
 
             const drawTarotBtn = document.getElementById('draw-tarot-btn');
@@ -379,6 +381,9 @@
 
                 function drawCard() {
                     if (currentTarotCardIndex >= tarotCardsData.length) return;
+
+                    gsap.to(tarotDeck, { y: -20, duration: 0.1, yoyo: true, repeat: 1 });
+
                     const cardData = tarotCardsData[currentTarotCardIndex];
                     const cardElement = document.createElement('img');
                     cardElement.src = cardData.image;
@@ -394,7 +399,7 @@
                     });
 
                     tarotResultGrid.appendChild(cardElement);
-                    gsap.to(cardElement, { opacity: 1, duration: 0.5, delay: 0.1 });
+                    gsap.fromTo(cardElement, { opacity: 0, y: 50, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, delay: 0.2 });
 
                     currentTarotCardIndex++;
 
@@ -418,31 +423,13 @@
             // --- LÓGICA PARA POEMAS APESTOSOS ---
             const datosPoemas = {
                 poemas: [
-                    {
-                        titulo: "Oda al Calcetín Perdido",
-                        autor: "Anónimo Desparejado",
-                        poema: "En el abismo del cesto te busqué,\nentre sábanas y calzones me asomé.\n¿Dónde estás, mi fiel compañero?\nSeguro te tragó el agujero negro del lavadero."
-                    },
-                    {
-                        titulo: "El Chicle Inmortal",
-                        autor: "Filósofo de la Acera",
-                        poema: "Pegado al suelo, ves pasar la vida,\nsoportas lluvias, sol y mil pisadas.\nEres más duro que político en campaña,\ny más eterno que la deuda de España."
-                    },
-                    {
-                        titulo: "Lamento del Wi-Fi Caído",
-                        autor: "El Náufrago Digital",
-                        poema: "Una barra, ninguna, parpadeas sin fin.\nMi mundo se detiene, oh, trágico confín.\nSin memes, sin series, sin luz en mi existir,\n¡vuelve, señal divina, o voy a sucumbir!"
-                    }
+                    { titulo: "Oda al Calcetín Perdido", autor: "Anónimo Desparejado", poema: "En el abismo del cesto te busqué,\nentre sábanas y calzones me asomé.\n¿Dónde estás, mi fiel compañero?\nSeguro te tragó el agujero negro del lavadero." },
+                    { titulo: "El Chicle Inmortal", autor: "Filósofo de la Acera", poema: "Pegado al suelo, ves pasar la vida,\nsoportas lluvias, sol y mil pisadas.\nEres más duro que político en campaña,\ny más eterno que la deuda de España." },
+                    { titulo: "Lamento del Wi-Fi Caído", autor: "El Náufrago Digital", poema: "Una barra, ninguna, parpadeas sin fin.\nMi mundo se detiene, oh, trágico confín.\nSin memes, sin series, sin luz en mi existir,\n¡vuelve, señal divina, o voy a sucumbir!" }
                 ],
                 manuscrito: {
-                    queEs: {
-                        titulo: "¿Qué es un poema apestoso?",
-                        texto: "Es un verso sin vergüenza, un juego de palabras que prefiere la carcajada a la métrica. Nace de la observación cotidiana, de lo absurdo y lo irreverente. No busca la inmortalidad en una antología, sino una sonrisa cómplice."
-                    },
-                    porQue: {
-                        titulo: "¿Por qué un poema apestoso?",
-                        texto: "Porque la poesía también puede reírse de sí misma, quitarse el corsé y celebrar lo imperfecto. Un poema apestoso es una invitación a escribir sin miedo al ridículo, a encontrar una belleza extraña y divertida en lo inesperado."
-                    }
+                    queEs: { titulo: "¿Qué es un poema apestoso?", texto: "Es un verso sin vergüenza, un juego de palabras que prefiere la carcajada a la métrica. Nace de la observación cotidiana, de lo absurdo y lo irreverente. No busca la inmortalidad en una antología, sino una sonrisa cómplice." },
+                    porQue: { titulo: "¿Por qué un poema apestoso?", texto: "Porque la poesía también puede reírse de sí misma, quitarse el corsé y celebrar lo imperfecto. Un poema apestoso es una invitación a escribir sin miedo al ridículo, a encontrar una belleza extraña y divertida en lo inesperado." }
                 }
             };
             const poemaTituloEl = document.getElementById('poema-titulo');
@@ -453,30 +440,27 @@
             const leerManuscritoBtn = document.getElementById('leer-manuscrito-btn');
             const manuscritoContainer = document.getElementById('manuscrito-container');
 
-            if (poemaTituloEl && poemaTextoEl && poemaAutorEl && prevPoemaBtn && nextPoemaBtn && leerManuscritoBtn && manuscritoContainer) {
+            if (poemaTituloEl) {
                 const todosLosPoemas = datosPoemas.poemas;
                 let poemaActualIndex = 0;
 
                 function mostrarPoema(index) {
-                    if (!todosLosPoemas || todosLosPoemas.length === 0) return;
                     const poema = todosLosPoemas[index];
-                    poemaTituloEl.textContent = poema.titulo;
-                    poemaTextoEl.textContent = poema.poema;
-                    poemaAutorEl.textContent = `- ${poema.autor}`;
+                    gsap.to([poemaTituloEl, poemaTextoEl, poemaAutorEl], {
+                        opacity: 0, duration: 0.2, onComplete: () => {
+                            poemaTituloEl.textContent = poema.titulo;
+                            poemaTextoEl.textContent = poema.poema;
+                            poemaAutorEl.textContent = `- ${poema.autor}`;
+                            gsap.to([poemaTituloEl, poemaTextoEl, poemaAutorEl], { opacity: 1, duration: 0.2 });
+                        }
+                    });
                 }
                 
-                // Mostrar el primer poema y rellenar el manuscrito
                 mostrarPoema(0);
-                const queEsEl = document.querySelector('#manuscrito-que-es');
-                if (queEsEl) {
-                    queEsEl.querySelector('h4').textContent = datosPoemas.manuscrito.queEs.titulo;
-                    queEsEl.querySelector('p').textContent = datosPoemas.manuscrito.queEs.texto;
-                }
-                const porQueEl = document.querySelector('#manuscrito-por-que');
-                if (porQueEl) {
-                    porQueEl.querySelector('h4').textContent = datosPoemas.manuscrito.porQue.titulo;
-                    porQueEl.querySelector('p').textContent = datosPoemas.manuscrito.porQue.texto;
-                }
+                manuscritoContainer.querySelector('#manuscrito-que-es h4').textContent = datosPoemas.manuscrito.queEs.titulo;
+                manuscritoContainer.querySelector('#manuscrito-que-es p').textContent = datosPoemas.manuscrito.queEs.texto;
+                manuscritoContainer.querySelector('#manuscrito-por-que h4').textContent = datosPoemas.manuscrito.porQue.titulo;
+                manuscritoContainer.querySelector('#manuscrito-por-que p').textContent = datosPoemas.manuscrito.porQue.texto;
 
                 nextPoemaBtn.addEventListener('click', () => {
                     poemaActualIndex = (poemaActualIndex + 1) % todosLosPoemas.length;
@@ -489,8 +473,15 @@
                 leerManuscritoBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     const isHidden = manuscritoContainer.style.display === 'none';
-                    manuscritoContainer.style.display = isHidden ? 'block' : 'none';
-                    leerManuscritoBtn.textContent = isHidden ? 'Ocultar Manuscrito' : 'Leer Manuscrito';
+                    if (isHidden) {
+                        gsap.fromTo(manuscritoContainer, { opacity: 0, height: 0 }, { display: 'block', opacity: 1, height: 'auto', duration: 0.4 });
+                        leerManuscritoBtn.textContent = 'Ocultar Manuscrito';
+                    } else {
+                        gsap.to(manuscritoContainer, { opacity: 0, height: 0, duration: 0.4, onComplete: () => {
+                            manuscritoContainer.style.display = 'none';
+                        }});
+                        leerManuscritoBtn.textContent = 'Leer Manuscrito';
+                    }
                 });
             }
         });
@@ -498,9 +489,8 @@
         async function generateFortune() {
             const fortunePaper = document.querySelector('.fortuna-papel');
             const generateBtn = document.getElementById('generate-fortune-btn');
+            const apiKey = "AIzaSyB1ctZo6mjZVoM32LNw7liHQFB-J5kUxhA"; // Tu API Key
             
-            const apiKey = "AIzaSyCjMXMQUpL9iV7ZyimM3eO9a6b09BycSCo"; 
-
             generateBtn.innerText = 'Generando...';
             generateBtn.disabled = true;
 
@@ -517,7 +507,7 @@
 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    throw new Error(`Error en la API: ${response.statusText} - ${errorData.error.message}`);
+                    throw new Error(`Error en la API: ${response.statusText} - ${JSON.stringify(errorData)}`);
                 }
 
                 const result = await response.json();
@@ -526,7 +516,7 @@
 
             } catch (error) {
                 console.error("Error al generar la fortuna:", error);
-                fortunePaper.innerText = "No se pudo generar una fortuna. Intenta de nuevo.";
+                fortunePaper.innerText = "El destino es incierto ahora. Intenta de nuevo más tarde.";
             } finally {
                 generateBtn.innerText = '✨ Pedir Otra Fortuna';
                 generateBtn.disabled = false;
