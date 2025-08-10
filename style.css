@@ -90,28 +90,19 @@ img {
     opacity: 0.3; /* Opacidad general para los fondos */
 }
 
-/* ----- INICIO DE CORRECCIONES ----- */
-
-/* FIX: Se añade el fondo para la sección sobre nosotros */
 #sobre-nosotros::before {
     background-image: url('imagenes/fondo-mar-nuevo.jpg');
 }
 
-/* FIX: Se corrige el nombre del archivo de imagen para la fortuna. El archivo se llama 'mazo-tarot.jpg' */
 #la-fortuna::before {
     background-image: url('imagenes/mazo-tarot.jpg');
 }
 
-/* FIX: Se corrige el nombre del archivo de imagen para poemas. El archivo se llama 'pizarra-1.jpg' */
 #poemas-apestosos::before {
     background-image: url('imagenes/pizarra-1.jpg');
     opacity: 0.9;
 }
 
-/* ----- FIN DE CORRECCIONES ----- */
-
-/* FIX: Dante en la playa no tendrá un ::before, por lo que se verá el fondo oscuro base de .seccion-contenido */
-/* Para que se vea el fondo del mar, quitamos el color de fondo de la sección */
 #dante-en-la-playa {
     background-color: transparent;
 }
