@@ -351,8 +351,8 @@
                  if (closeModalBtn) {
                     closeModalBtn.addEventListener('click', () => emailModal.classList.remove('visible'));
                  }
-                  modal.addEventListener('click', (e) => {
-                    if (e.target === modal) modal.classList.remove('visible');
+                  emailModal.addEventListener('click', (e) => {
+                    if (e.target === emailModal) emailModal.classList.remove('visible');
                 });
                  if (emailForm) {
                     emailForm.addEventListener('submit', (event) => {
@@ -364,32 +364,38 @@
             }
 
             // --- LÓGICA TAROT ---
-            const tarotCardsData = [
-                { name: "El Viaje Desolado", image: "imagenes/tarot-1.png", interpretation: "El viaje inicia con abandono, dejando atrás lo que ya no sirve." },
-                { name: "La Soledad del Desierto", image: "imagenes/tarot-2.jpg", interpretation: "La soledad y aridez subrayan un aislamiento sin guía espiritual." },
-                { name: "La Ascensión", image: "imagenes/tarot-3.jpeg", interpretation: "Una revelación forzosa que impulsa a emprender la redención." },
-                { name: "El Paraíso", image: "imagenes/tarot-4.jpg", interpretation: "La culminación del viaje, un reencuentro que trae paz y gracia." }
-            ];
-
             const drawTarotBtn = document.getElementById('draw-tarot-btn');
             const tarotResultGrid = document.getElementById('tarot-result-grid');
             const tarotModal = document.getElementById('tarot-modal');
             const tarotDeck = document.getElementById('tarot-deck');
             
             if(drawTarotBtn) {
-                let currentTarotCardIndex = 0;
+                let tarotCardsData = [];
+                let drawnCards = 0;
+                let cardsFetched = false;
+
+                async function getTarotCards() {
+                    if(cardsFetched) return;
+                    try {
+                        const response = await fetch('/tarot');
+                        tarotCardsData = await response.json();
+                        cardsFetched = true;
+                        drawCard(); // Dibuja la primera carta automáticamente
+                    } catch (error) {
+                        console.error('Error al obtener las cartas del tarot:', error);
+                    }
+                }
 
                 function drawCard() {
-                    if (currentTarotCardIndex >= tarotCardsData.length) return;
+                    if (drawnCards >= tarotCardsData.length) return;
 
                     gsap.to(tarotDeck, { y: -20, duration: 0.1, yoyo: true, repeat: 1 });
 
-                    const cardData = tarotCardsData[currentTarotCardIndex];
+                    const cardData = tarotCardsData[drawnCards];
                     const cardElement = document.createElement('img');
                     cardElement.src = cardData.image;
                     cardElement.alt = cardData.name;
                     cardElement.className = 'tarot-card';
-                    cardElement.style.opacity = 0;
                     
                     cardElement.addEventListener('click', () => {
                         document.getElementById('tarot-modal-img').src = cardData.image;
@@ -401,17 +407,30 @@
                     tarotResultGrid.appendChild(cardElement);
                     gsap.fromTo(cardElement, { opacity: 0, y: 50, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, delay: 0.2 });
 
-                    currentTarotCardIndex++;
+                    drawnCards++;
 
-                    if (currentTarotCardIndex >= tarotCardsData.length) {
+                    if (drawnCards >= tarotCardsData.length) {
                         drawTarotBtn.innerText = 'Lectura Completa';
                         drawTarotBtn.disabled = true;
                         gsap.to([drawTarotBtn, tarotDeck], {autoAlpha: 0.5, duration: 0.5});
                     }
                 }
                 
-                drawTarotBtn.addEventListener('click', drawCard);
-                tarotDeck.addEventListener('click', drawCard);
+                drawTarotBtn.addEventListener('click', () => {
+                    if (!cardsFetched) {
+                        getTarotCards();
+                    } else {
+                        drawCard();
+                    }
+                });
+
+                tarotDeck.addEventListener('click', () => {
+                     if (!cardsFetched) {
+                        getTarotCards();
+                    } else {
+                        drawCard();
+                    }
+                });
 
                 const tarotModalClose = tarotModal.querySelector('.tarot-modal-close');
                 tarotModalClose.addEventListener('click', () => tarotModal.classList.remove('visible'));
@@ -421,98 +440,88 @@
             }
 
             // --- LÓGICA PARA POEMAS APESTOSOS ---
-            const datosPoemas = {
-                poemas: [
-                    { titulo: "Oda al Calcetín Perdido", autor: "Anónimo Desparejado", poema: "En el abismo del cesto te busqué,\nentre sábanas y calzones me asomé.\n¿Dónde estás, mi fiel compañero?\nSeguro te tragó el agujero negro del lavadero." },
-                    { titulo: "El Chicle Inmortal", autor: "Filósofo de la Acera", poema: "Pegado al suelo, ves pasar la vida,\nsoportas lluvias, sol y mil pisadas.\nEres más duro que político en campaña,\ny más eterno que la deuda de España." },
-                    { titulo: "Lamento del Wi-Fi Caído", autor: "El Náufrago Digital", poema: "Una barra, ninguna, parpadeas sin fin.\nMi mundo se detiene, oh, trágico confín.\nSin memes, sin series, sin luz en mi existir,\n¡vuelve, señal divina, o voy a sucumbir!" }
-                ],
-                manuscrito: {
-                    queEs: { titulo: "¿Qué es un poema apestoso?", texto: "Es un verso sin vergüenza, un juego de palabras que prefiere la carcajada a la métrica. Nace de la observación cotidiana, de lo absurdo y lo irreverente. No busca la inmortalidad en una antología, sino una sonrisa cómplice." },
-                    porQue: { titulo: "¿Por qué un poema apestoso?", texto: "Porque la poesía también puede reírse de sí misma, quitarse el corsé y celebrar lo imperfecto. Un poema apestoso es una invitación a escribir sin miedo al ridículo, a encontrar una belleza extraña y divertida en lo inesperado." }
-                }
-            };
-            const poemaTituloEl = document.getElementById('poema-titulo');
-            const poemaTextoEl = document.getElementById('poema-texto');
-            const poemaAutorEl = document.getElementById('poema-autor');
-            const prevPoemaBtn = document.getElementById('prev-poema');
-            const nextPoemaBtn = document.getElementById('next-poema');
-            const leerManuscritoBtn = document.getElementById('leer-manuscrito-btn');
-            const manuscritoContainer = document.getElementById('manuscrito-container');
+            const poemaDisplay = document.getElementById('poema-display');
+            if (poemaDisplay) {
+                fetch('/poemas')
+                    .then(response => response.json())
+                    .then(data => {
+                        const poemaTituloEl = document.getElementById('poema-titulo');
+                        const poemaTextoEl = document.getElementById('poema-texto');
+                        const poemaAutorEl = document.getElementById('poema-autor');
+                        const prevPoemaBtn = document.getElementById('prev-poema');
+                        const nextPoemaBtn = document.getElementById('next-poema');
+                        const leerManuscritoBtn = document.getElementById('leer-manuscrito-btn');
+                        const manuscritoContainer = document.getElementById('manuscrito-container');
+                        
+                        const todosLosPoemas = data.poemas;
+                        let poemaActualIndex = 0;
 
-            if (poemaTituloEl) {
-                const todosLosPoemas = datosPoemas.poemas;
-                let poemaActualIndex = 0;
-
-                function mostrarPoema(index) {
-                    const poema = todosLosPoemas[index];
-                    gsap.to([poemaTituloEl, poemaTextoEl, poemaAutorEl], {
-                        opacity: 0, duration: 0.2, onComplete: () => {
-                            poemaTituloEl.textContent = poema.titulo;
-                            poemaTextoEl.textContent = poema.poema;
-                            poemaAutorEl.textContent = `- ${poema.autor}`;
-                            gsap.to([poemaTituloEl, poemaTextoEl, poemaAutorEl], { opacity: 1, duration: 0.2 });
+                        function mostrarPoema(index) {
+                            const poema = todosLosPoemas[index];
+                            gsap.to([poemaTituloEl, poemaTextoEl, poemaAutorEl], {
+                                opacity: 0, duration: 0.2, onComplete: () => {
+                                    poemaTituloEl.textContent = poema.titulo;
+                                    poemaTextoEl.textContent = poema.poema;
+                                    poemaAutorEl.textContent = `- ${poema.autor}`;
+                                    gsap.to([poemaTituloEl, poemaTextoEl, poemaAutorEl], { opacity: 1, duration: 0.2 });
+                                }
+                            });
                         }
-                    });
-                }
-                
-                mostrarPoema(0);
-                manuscritoContainer.querySelector('#manuscrito-que-es h4').textContent = datosPoemas.manuscrito.queEs.titulo;
-                manuscritoContainer.querySelector('#manuscrito-que-es p').textContent = datosPoemas.manuscrito.queEs.texto;
-                manuscritoContainer.querySelector('#manuscrito-por-que h4').textContent = datosPoemas.manuscrito.porQue.titulo;
-                manuscritoContainer.querySelector('#manuscrito-por-que p').textContent = datosPoemas.manuscrito.porQue.texto;
+                        
+                        mostrarPoema(0);
+                        manuscritoContainer.querySelector('#manuscrito-que-es h4').textContent = data.manuscrito.queEs.titulo;
+                        manuscritoContainer.querySelector('#manuscrito-que-es p').textContent = data.manuscrito.queEs.texto;
+                        manuscritoContainer.querySelector('#manuscrito-por-que h4').textContent = data.manuscrito.porQue.titulo;
+                        manuscritoContainer.querySelector('#manuscrito-por-que p').textContent = data.manuscrito.porQue.texto;
 
-                nextPoemaBtn.addEventListener('click', () => {
-                    poemaActualIndex = (poemaActualIndex + 1) % todosLosPoemas.length;
-                    mostrarPoema(poemaActualIndex);
-                });
-                prevPoemaBtn.addEventListener('click', () => {
-                    poemaActualIndex = (poemaActualIndex - 1 + todosLosPoemas.length) % todosLosPoemas.length;
-                    mostrarPoema(poemaActualIndex);
-                });
-                leerManuscritoBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const isHidden = manuscritoContainer.style.display === 'none';
-                    if (isHidden) {
-                        gsap.fromTo(manuscritoContainer, { opacity: 0, height: 0 }, { display: 'block', opacity: 1, height: 'auto', duration: 0.4 });
-                        leerManuscritoBtn.textContent = 'Ocultar Manuscrito';
-                    } else {
-                        gsap.to(manuscritoContainer, { opacity: 0, height: 0, duration: 0.4, onComplete: () => {
-                            manuscritoContainer.style.display = 'none';
-                        }});
-                        leerManuscritoBtn.textContent = 'Leer Manuscrito';
-                    }
-                });
+                        nextPoemaBtn.addEventListener('click', () => {
+                            poemaActualIndex = (poemaActualIndex + 1) % todosLosPoemas.length;
+                            mostrarPoema(poemaActualIndex);
+                        });
+                        prevPoemaBtn.addEventListener('click', () => {
+                            poemaActualIndex = (poemaActualIndex - 1 + todosLosPoemas.length) % todosLosPoemas.length;
+                            mostrarPoema(poemaActualIndex);
+                        });
+                        leerManuscritoBtn.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const isHidden = manuscritoContainer.style.display === 'none';
+                            if (isHidden) {
+                                gsap.fromTo(manuscritoContainer, { opacity: 0, height: 0 }, { display: 'block', opacity: 1, height: 'auto', duration: 0.4 });
+                                leerManuscritoBtn.textContent = 'Ocultar Manuscrito';
+                            } else {
+                                gsap.to(manuscritoContainer, { opacity: 0, height: 0, duration: 0.4, onComplete: () => {
+                                    manuscritoContainer.style.display = 'none';
+                                }});
+                                leerManuscritoBtn.textContent = 'Leer Manuscrito';
+                            }
+                        });
+                    })
+                    .catch(error => console.error('Error al cargar los poemas:', error));
             }
         });
 
+        // --- FUNCIÓN PARA GENERAR FORTUNA DESDE EL BACKEND ---
         async function generateFortune() {
             const fortunePaper = document.querySelector('.fortuna-papel');
             const generateBtn = document.getElementById('generate-fortune-btn');
-            const apiKey = "AIzaSyB1ctZo6mjZVoM32LNw7liHQFB-J5kUxhA"; // Tu API Key
             
             generateBtn.innerText = 'Generando...';
             generateBtn.disabled = true;
 
             try {
-                const prompt = "Escribe una fortuna para una galleta, en español. Debe ser corta, poética, y con un toque de melancolía sobre el pasado, el amor perdido o el destino. Como si la hubiera escrito un escritor recordando su juventud. Máximo 20 palabras.";
-                const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
-
-                const response = await fetch(apiUrl, {
+                // La llamada ahora es a nuestro propio servidor, no a la API de Google
+                const response = await fetch('/generate-fortune', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    headers: { 'Content-Type': 'application/json' }
                 });
 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    throw new Error(`Error en la API: ${response.statusText} - ${JSON.stringify(errorData)}`);
+                    throw new Error(errorData.error || 'Error en el servidor');
                 }
 
                 const result = await response.json();
-                const newFortune = result.candidates[0].content.parts[0].text;
-                fortunePaper.innerText = newFortune.trim().replace(/"/g, '');
+                fortunePaper.innerText = result.fortuna;
 
             } catch (error) {
                 console.error("Error al generar la fortuna:", error);
