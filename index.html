@@ -3,138 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio Palíndromo</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Estudio Palíndromo - Inicio</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Cinzel+Decorative:wght@700&family=MedievalSharp&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header id="page-header">
-        <div class="container header-container">
-            <a href="#inicio" class="header-titulo">Estudio Palíndromo</a>
-            <div class="header-menu-lado">
-                <a href="#la-fortuna" class="menu-circulo"><img src="imagenes/icono-fortuna.png" alt="La Fortuna"></a>
-                <a href="#dante-en-la-playa" class="menu-circulo"><img src="imagenes/icono-dante.png" alt="Dante"></a>
-                <a href="#poemas-apestosos" class="menu-circulo"><img src="imagenes/icono-poemas.png" alt="Poemas"></a>
-            </div>
-        </div>
+        <nav class="header-menu-lado">
+            <a href="#la-fortuna" class="menu-circulo" id="circulo-fortuna"><img src="imagenes/icono-fortuna.png" alt="La Fortuna"></a>
+            <a href="#dante-en-la-playa" class="menu-circulo" id="circulo-dante"><img src="imagenes/icono-dante.png" alt="Dante en la Playa"></a>
+        </nav>
+        <a href="#" class="header-titulo">Estudio Palíndromo</a>
+        <nav class="header-menu-lado">
+            <a href="#poemas-apestosos" class="menu-circulo" id="circulo-poemas"><img src="imagenes/icono-poemas.png" alt="Poemas Apestosos"></a>
+        </nav>
     </header>
-
+    
     <main>
-        <section id="inicio" class="hero-sirena">
-            <div class="hero-background">
-                <img src="imagenes/sirena-portada.jpg" alt="Sirena en el mar" class="sirena-img">
-            </div>
-            <h1 class="titulo-hero">Contamos Historias</h1>
+        <section class="hero-sirena">
+            <img src="imagenes/sirena-portada.jpg" alt="Logo de Estudio Palíndromo: Sirena con cámara cinematográfica" class="sirena-img">
+            <h1 class="titulo-hero">Estudio Palíndromo</h1>
         </section>
 
         <section id="sobre-nosotros" class="seccion-contenido">
-            <div class="container dark-container">
-                <div class="slider-container">
-                    <div class="slides">
-                        <!-- Slide 1: Joshua Solana -->
-                        <div class="slide">
-                            <div class="about-layout">
-                                <div class="about-column">
-                                    <h2>Sobre Nosotros</h2>
-                                    <h3>Joshua Solana</h3>
-                                    <p>Soy un productor creativo, escritor cultural y educador audiovisual con experiencia en proyectos interdisciplinarios. He trabajado tanto en espacios educativos como en medios culturales, y me interesa colaborar con equipos que valoren la imaginación, la escritura y el pensamiento visual.</p>
-                                    <div class="social-links-section">
-                                        <a href="#" class="social-icon-circle"><img src="imagenes/linkedin-icon.png" alt="LinkedIn"></a>
-                                        <a href="#" class="social-icon-circle"><img src="imagenes/imdb.png" alt="IMDb"></a>
-                                        <a href="#" class="social-icon-circle"><img src="imagenes/instagram-icon.png" alt="Instagram"></a>
-                                        <a href="#" class="social-icon-circle"><img src="imagenes/Mail.png" alt="Email"></a>
-                                    </div>
+            <h2>Sobre Nosotros</h2>
+            <div class="slider-container">
+                <div class="slides">
+                    <div class="slide active">
+                        <h3>Joshua Solana</h3>
+                        <div class="about-layout">
+                            <div class="about-column about-text">
+                                <p>
+                                    Soy un productor creativo, escritor cultural y educador audiovisual con experiencia en proyectos interdisciplinarios. He trabajado tanto en espacios educativos como en medios culturales, y me interesa colaborar con equipos que valoren la imaginación, la escritura y el pensamiento visual.
+                                </p>
+                                <p>
+                                    Colaboro con <a href="https://arbolrojocine.com" target="_blank">Árbol Rojo A.C.</a>, cubriendo festivales como el FICG y Los Cabos IFF a través de crónicas y contenidos para redes. También fui docente en el Instituto Miguel Ángel Herrera, donde impartí cine, historia y escritura, y lidero proyectos como <a href="#poemas-apestosos" class="link-poemas-apestosos">Poemas Apestosos</a>.
+                                </p>
+                                <div class="social-links-section">
+                                    <a href="https://www.linkedin.com/in/joshs0lana/" target="_blank" class="social-icon-circle">
+                                        <img src="imagenes/linkedin-icon.png" alt="LinkedIn">
+                                    </a>
+                                    <a href="https://www.imdb.com/name/nm13304009/?ref_=ext_shr_lnk" target="_blank" class="social-icon-circle">
+                                        <img src="imagenes/imdb.png" alt="IMDb">
+                                    </a>
+                                    <a href="https://www.instagram.com/joshsolana_/" target="_blank" class="social-icon-circle">
+                                        <img src="imagenes/instagram-icon.png" alt="Instagram">
+                                    </a>
+                                     <a href="mailto:josh.adriansolana2@gmail.com" target="_blank" class="social-icon-circle">
+                                        <img src="imagenes/Mail.png" alt="Email">
+                                    </a>
                                 </div>
-                                <div class="about-column">
-                                    <div class="vimeo-container">
-                                        <iframe src="https://player.vimeo.com/video/824895215?h=420e6a312f" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                                    </div>
+                            </div>
+                            <div class="about-column about-media">
+                                <div class="vimeo-container">
+                                    <iframe id="vimeo-main-player" src="https://player.vimeo.com/video/1052665636?h=06da0ad355&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                             </div>
                         </div>
-                        <!-- Slide 2: Samantha -->
-                        <div class="slide">
-                             <div class="about-layout">
-                                <div class="about-column">
-                                    <h2>Sobre Nosotros</h2>
-                                    <h3>Samantha Guevara</h3>
-                                    <p>Texto sobre Samantha aquí.</p>
+                    </div>
+                    <div class="slide">
+                        <h3>Samantha Solana</h3>
+                        <div class="about-layout">
+                             <div class="about-column about-text">
+                                <p>
+                                    Artista visual con un profundo interés en el dibujo, la cerámica y el grabado. Para mí, el arte es una experiencia vital que me permite explorar el mundo, formar mi cosmovisión y entender mi propia identidad. Mi obra busca conectar con el carácter antropológico y la magia de la vida.
+                                </p>
+                                <p>
+                                    Con estudios en Cine y Animación, he trabajado en departamentos de arte para producciones audiovisuales, como animadora en la película "Monstruosamente Solo" y como ilustradora. Actualmente, curso la Licenciatura en Artes Visuales y co-imparto talleres de artes plásticas.
+                                </p>
+                                <div class="social-links-section">
+                                    <a href="#" target="_blank" class="enlace-guion small-button">Ver Galería</a>
+                                    <a href="https://www.instagram.com/samantha_solana" target="_blank" class="social-icon-circle">
+                                        <img src="imagenes/instagram-icon.png" alt="Instagram">
+                                    </a>
+                                     <a href="mailto:samantha.solana.art@email.com" target="_blank" class="social-icon-circle">
+                                        <img src="imagenes/Mail.png" alt="Email">
+                                    </a>
                                 </div>
-                                <div class="about-column">
-                                   <div class="instagram-grid">
-                                        <img src="imagenes/insta-sam-01.jpg" alt="Imagen de Instagram 1">
-                                        <img src="imagenes/insta-sam-02.jpg" alt="Imagen de Instagram 2">
-                                        <img src="imagenes/insta-sam-03.jpg" alt="Imagen de Instagram 3">
-                                        <img src="imagenes/insta-sam-04.jpg" alt="Imagen de Instagram 4">
-                                   </div>
+                            </div>
+                            <div class="about-column about-media">
+                                <div class="instagram-grid">
+                                    <a href="#" target="_blank" class="grid-item"><img src="imagenes/insta-sam-01.jpg" alt="Publicación de Instagram 1"></a>
+                                    <a href="#" target="_blank" class="grid-item"><img src="imagenes/insta-sam-02.jpg" alt="Publicación de Instagram 2"></a>
+                                    <a href="#" target="_blank" class="grid-item"><img src="imagenes/insta-sam-03.jpg" alt="Publicación de Instagram 3"></a>
+                                    <a href="#" target="_blank" class="grid-item"><img src="imagenes/insta-sam-04.jpg" alt="Publicación de Instagram 4"></a>
                                 </div>
                             </div>
                         </div>
-                        <!-- Slide 3: Arthur -->
-                        <div class="slide">
-                             <div class="about-layout">
-                                <div class="about-column">
-                                    <h2>Sobre Nosotros</h2>
-                                    <h3>Arthur</h3>
-                                     <p>Texto sobre Arthur aquí.</p>
-                                </div>
-                                <div class="about-column">
-                                    <img src="https://placehold.co/600x400/1a1a1a/f0f0f0?text=Imagen+Arthur" alt="Foto de Arthur" style="border-radius: 10px;">
-                                </div>
+                    </div>
+                    <div class="slide">
+                        <h3>Luis Ángel Nava</h3>
+                        <div class="about-layout">
+                            <div class="about-column about-text">
+                                <p>Guionista y creativo enfocado en el desarrollo de historias para cine y otros medios. Su trabajo busca explorar narrativas introspectivas y personajes complejos.</p>
+                                <p>Actualmente tiene varios proyectos en desarrollo que pronto verán la luz. ¡Mantente al tanto!</p>
+                                 <div class="social-links-section">
+                                    <a href="https://www.imdb.com/name/nm13304010/?ref_=ext_shr_lnk" target="_blank" class="social-icon-circle">
+                                       <img src="imagenes/imdb.png" alt="IMDb">
+                                    </a>
+                                    <a href="https://www.instagram.com/angelnava_22/" target="_blank" class="social-icon-circle">
+                                        <img src="imagenes/instagram-icon.png" alt="Instagram">
+                                    </a>
+                                    <a href="mailto:luis.nava.escritor@email.com" target="_blank" class="social-icon-circle">
+                                        <img src="imagenes/Mail.png" alt="Email">
+                                    </a>
+                                 </div>
+                            </div>
+                            <div class="about-column about-media">
+                                <img src="https://placehold.co/600x400/4CAF50/FFFFFF?text=Luis+Nava" alt="Luis Ángel Nava" class="profile-image">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="slider-nav">
-                    <span class="dot active"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
                 </div>
             </div>
         </section>
 
         <section id="la-fortuna" class="seccion-contenido">
-            <div class="container dark-container fortuna-main-content">
+            <h2 class="titulo-dorado">La Fortuna.</h2>
+            <h3 class="fortuna-subtitle">Hay recuerdos que se escriben en papel de arroz.</h3>
+            
+            <div id="fortuna-background-slideshow"></div>
+
+            <div class="fortuna-main-content">
                 <div class="fortuna-columna-texto">
-                    <h2 class="titulo-dorado">La Fortuna</h2>
-                    <p class="logline">Una galleta de la fortuna para guionistas, cineastas y otros bichos raros del celuloide.</p>
-                    <div class="action-buttons-container">
-                        <a href="#" id="generar-fortuna-btn" class="enlace-guion">Romper Galleta</a>
+                    <p class="logline">
+                        EN LOS 80, UN JOVEN LAVATRASTES ESCRIBÍA A MANO GALLETAS DE LA FORTUNA, TODAS SECRETAMENTE DEDICADAS A AMARANTA ARAIZA. DÉCADAS DESPUÉS, YA ESCRITOR, REGRESA A SU PUEBLO PARA ENFRENTAR LA ÚNICA FORTUNA QUE NUNCA SE ATREVIÓ A LEER.
+                    </p>
+                    <div class="sinopsis-texto">
+                        <p>
+                            Luis Wilkens, un escritor consagrado, vuelve a Todos Santos, su pueblo natal en Baja California Sur, para inaugurar una biblioteca en su honor. Un encuentro con su pasado lo sumerge en un viaje íntimo al verano de 1973, cuando, con quince años, escribía fortunas en un restaurante chino y vivía su primer amor con Amaranta Araiza.
+                        </p>
+                    </div>
+                    <div class="datos-proyecto">
+                        <p><strong>GÉNERO:</strong> Drama / Romance</p>
+                        <p><strong>DURACIÓN ESTIMADA:</strong> 103 MIN.</p>
+                    </div>
+                     <div class="action-buttons-container">
+                        <a href="https://drive.google.com/file/d/10mN6lgND34U-PyQ9So5VRUbhn9kAJHvF/view?usp=sharing" target="_blank" class="enlace-guion">🍀 Leer Guion</a>
+                        <button id="generate-fortune-btn" class="enlace-guion">✨ Pedir Otra Fortuna</button>
                     </div>
                 </div>
                 <div class="fortuna-columna-animacion">
-                    <div class="galleta-container">
-                        <img src="imagenes/galleta-01.png" alt="Galleta de la fortuna" class="galleta-secuencia" id="galleta-secuencia-img">
-                        <div class="fortuna-papel" style="display: none;">
-                            <p id="fortuna-papel-texto"></p>
-                        </div>
+                    <div class="galleta-container" id="galleta-anim-trigger">
+                        <img src="imagenes/galleta-01.png" alt="Galleta paso 1" class="galleta-secuencia">
+                        <img src="imagenes/galleta-02.png" alt="Galleta paso 2" class="galleta-secuencia">
+                        <img src="imagenes/galleta-03.png" alt="Galleta paso 3" class="galleta-secuencia">
+                        <img src="imagenes/galleta-04.png" alt="Galleta paso 4" class="galleta-secuencia">
+                        <img src="imagenes/galleta-05.png" alt="Galleta paso 5" class="galleta-secuencia">
+                        <img src="imagenes/galleta-06.png" alt="Galleta paso 6" class="galleta-secuencia">
+                        <img src="imagenes/galleta-07.png" alt="Galleta paso 7" class="galleta-secuencia">
+                        <div class="fortuna-papel">Aquel que carga la fortuna debe saber cuando leerla.</div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="dante-en-la-playa" class="seccion-contenido">
-            <div class="container dark-container">
-                <div class="dante-grid-layout">
-                    <div class="dante-columna-texto">
-                        <h2 class="titulo-dante">
-                            Dante
-                            <span class="subtitle-dante">en la playa del amor desenfrenado.</span>
-                        </h2>
-                        <p class="logline">
-                            UN HOMBRE DESPIERTA CON RESACA EN UNA PLAYA DE BAJA CALIFORNIA SUR, DESCUBRIENDO QUE ESTÁ MUERTO Y ATRAPADO EN EL PURGATORIO. PARA ALCANZAR EL PARAÍSO, DEBE EMPRENDER UN VIAJE ESPIRITUAL A TRAVÉS DEL DESIERTO, GUIADO POR LAS MEMORIAS DE SU ABUELO Y LA ESPERANZA DE REENCONTRARSE CON SU AMADA BEATRIZ.
+            <div class="dante-split-layout">
+                <div class="dante-info">
+                    <h2 class="titulo-dante">Dante <span class="subtitle-dante">en la playa del amor desenfrenado.</span></h2>
+                    <p class="logline">
+                        UN HOMBRE DESPIERTA CON RESACA EN UNA PLAYA DE BAJA CALIFORNIA SUR, DESCUBRIENDO QUE ESTÁ MUERTO Y ATRAPADO EN EL PURGATORIO. PARA ALCANZAR EL PARAÍSO, DEBE EMPRENDER UN VIAJE ESPIRITUAL A TRAVÉS DEL DESIERTO, GUIADO POR LAS MEMORIAS DE SU ABUELO Y LA ESPERANZA DE REENCONTRARSE CON SU AMADA BEATRIZ.
+                    </p>
+                    <div class="sinopsis-texto">
+                        <p>
+                            "Dante en la playa del amor desenfrenado" es una reinterpretación de "La Divina Comedia" ambientada en el paisaje místico de Baja California Sur. La historia sigue a Dante en su odisea post-mortem, un viaje que lo lleva desde la confusión de una playa desolada hasta las cumbres de la Sierra de la Laguna, que se convierte en su Montaña del Purgatorio.
                         </p>
-                        <p><strong>GÉNERO:</strong> Fantasía / Drama<br><strong>DURACIÓN:</strong> 33 Min.</p>
                     </div>
+                    <div class="datos-proyecto">
+                        <p><strong>GÉNERO:</strong> Drama / Fantasía</p>
+                        <p><strong>DURACIÓN:</strong> 33 MIN.</p>
+                    </div>
+                </div>
+
+                <div class="dante-tarot">
+                    <h3 class="tarot-subtitle">Una lectura para tu viaje.</h3>
                     <div class="tarot-interactive-area">
-                        <div id="tarot-result-grid">
-                            <!-- Las cartas se insertarán aquí -->
-                        </div>
-                         <p id="tarot-instruction" style="margin-top: 1rem; font-style: italic; opacity: 0.7;">Tu lectura se revelará al llegar aquí...</p>
+                        <img src="imagenes/mazo-tarot.png" alt="Mazo de Tarot" id="tarot-deck" class="tarot-deck-image">
+                        <button id="draw-tarot-btn" class="enlace-guion">Sacar una carta</button>
                     </div>
+                    <div id="tarot-result-grid" class="tarot-grid">
+                        </div>
                 </div>
             </div>
         </section>
@@ -170,257 +229,309 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     <footer class="site-footer">
-        <div class="container">
-            <div class="footer-line"></div>
-            <a href="#inicio" class="footer-symbols">EP</a>
-            <div class="footer-line"></div>
+        <div class="footer-line"></div>
+        <div class="footer-symbols">
+            <a href="mailto:josh.adriansolana2@gmail.com" target="_blank">MAIL</a>
         </div>
+        <div class="footer-line"></div>
+        <p class="footer-title-reversed">omordnílaP oidutsE</p>
     </footer>
 
-    <div id="contact-modal" class="modal-overlay">
+    <div id="email-modal" class="modal-overlay">
         <div class="modal-content">
             <span class="modal-close">&times;</span>
-            <h4>¿Quieres más sabiduría (o mala suerte)?</h4>
-            <p>Déjanos tu correo o tu Instagram y te enviaremos una nueva fortuna de vez en cuando.</p>
-            <input type="text" id="contact-input" placeholder="@usuario o correo@ejemplo.com">
-            <a href="#" class="enlace-guion">Enviar</a>
+            <h3>Otra Fortuna a Cambio de un Contacto</h3>
+            <p>Para descubrir otro destino, por favor deja tu correo o tu Instagram.</p>
+            <form id="email-form">
+                <input type="text" id="email-input" placeholder="correo@ejemplo.com o @usuario" required>
+                <button type="submit">Generar Fortuna</button>
+            </form>
         </div>
     </div>
 
+    <div id="tarot-modal" class="modal-overlay">
+        <div class="modal-content tarot-modal-content">
+            <span class="modal-close tarot-modal-close">&times;</span>
+            <img id="tarot-modal-img" src="" alt="Carta de Tarot Ampliada">
+            <h4 id="tarot-modal-title"></h4>
+            <p id="tarot-modal-text"></p>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollToPlugin.min.js"></script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-        // ==================================================================
-        // --- DATOS LOCALES (REEMPLAZAN LAS LLAMADAS AL SERVIDOR) ---
-        // ==================================================================
+            // --- ANIMACIÓN HERO ---
+            gsap.to(".sirena-img", { scale: 1, ease: "none", scrollTrigger: { trigger: ".hero-sirena", start: "top top", end: "bottom top", scrub: 1.5 } });
+            gsap.from(".titulo-hero", { opacity: 0, scale: 0.8, ease: "power2.out", scrollTrigger: { trigger: ".hero-sirena", start: "top center", end: "center center", scrub: 1.5 } });
 
-        const datosPoemas = {
-            poemas: [
-                {
-                    titulo: "Oda al Calcetín Perdido",
-                    autor: "Anónimo Desparejado",
-                    poema: "En el abismo del cesto te busqué,\nentre sábanas y calzones me asomé.\n¿Dónde estás, mi fiel compañero?\nSeguro te tragó el agujero negro del lavadero."
-                },
-                {
-                    titulo: "El Chicle Inmortal",
-                    autor: "Filósofo de la Acera",
-                    poema: "Pegado al suelo, ves pasar la vida,\nsoportas lluvias, sol y mil pisadas.\nEres más duro que político en campaña,\ny más eterno que la deuda de España."
-                },
-                {
-                    titulo: "Lamento del Wi-Fi Caído",
-                    autor: "El Náufrago Digital",
-                    poema: "Una barra, ninguna, parpadeas sin fin.\nMi mundo se detiene, oh, trágico confín.\nSin memes, sin series, sin luz en mi existir,\n¡vuelve, señal divina, o voy a sucumbir!"
-                }
-            ],
-            manuscrito: {
-                queEs: {
-                    titulo: "¿Qué es un poema apestoso?",
-                    texto: "Es un verso sin vergüenza, un juego de palabras que prefiere la carcajada a la métrica. Nace de la observación cotidiana, de lo absurdo y lo irreverente. No busca la inmortalidad en una antología, sino una sonrisa cómplice."
-                },
-                porQue: {
-                    titulo: "¿Por qué un poema apestoso?",
-                    texto: "Porque la poesía también puede reírse de sí misma, quitarse el corsé y celebrar lo imperfecto. Un poema apestoso es una invitación a escribir sin miedo al ridículo, a encontrar una belleza extraña y divertida en lo inesperado."
-                }
-            }
-        };
-
-        const datosFortunas = [
-            "Tu guion será tan bueno que hasta Netflix te pedirá una segunda temporada.",
-            "Esa idea que tienes en la cabeza vale oro. No la dejes escapar.",
-            "Pronto recibirás una llamada inesperada de un productor. Prepárate.",
-            "El bloqueo del escritor se irá tan rápido como llegó. Confía en el proceso.",
-            "Tu próximo cortometraje ganará un premio en un festival inesperado."
-        ];
-
-        const datosTarot = [
-            { nombre: "El Loco", significado: "Nuevos comienzos, fe en el futuro.", imagenUrl: "imagenes/tarot-1.png" },
-            { nombre: "La Emperatriz", significado: "Creatividad, abundancia, fertilidad.", imagenUrl: "imagenes/tarot-2.jpg" },
-            { nombre: "El Ermitaño", significado: "Introspección, búsqueda de la verdad.", imagenUrl: "imagenes/tarot-3.jpeg" },
-            { nombre: "La Rueda de la Fortuna", significado: "Cambio, ciclos, destino.", imagenUrl: "imagenes/tarot-4.jpg" }
-        ];
-
-
-        // ==================================================================
-        // --- LÓGICAS DE LA PÁGINA ---
-        // ==================================================================
-
-        // --- LÓGICA PARA EL SLIDER DE "SOBRE NOSOTROS" ---
-        const slides = document.querySelector('.slides');
-        const dots = document.querySelectorAll('.dot');
-        if (slides && dots.length > 0) {
-            let currentIndex = 0;
-            function updateSlider() {
-                slides.style.transform = `translateX(-${currentIndex * 100 / dots.length}%)`;
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentIndex);
+            // --- SLIDER 'SOBRE NOSOTROS' ---
+            const slides = document.querySelector('.slides');
+            const dots = document.querySelectorAll('.dot');
+            if (slides && dots.length > 0) {
+                const slideCount = dots.length;
+                dots.forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        const slideIndex = dot.getAttribute('data-slide');
+                        slides.style.transform = `translateX(-${slideIndex * 100 / slideCount}%)`;
+                        dots.forEach(d => d.classList.remove('active'));
+                        dot.classList.add('active');
+                        document.querySelectorAll('.slide').forEach((slide, index) => {
+                            slide.classList.remove('active');
+                            if(index == slideIndex) slide.classList.add('active');
+                        })
+                    });
                 });
             }
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    currentIndex = index;
-                    updateSlider();
-                });
-            });
-        }
 
-        // --- LÓGICA PARA LA GALLETA DE LA FORTUNA ---
-        const generarFortunaBtn = document.getElementById('generar-fortuna-btn');
-        const galletaImg = document.getElementById('galleta-secuencia-img');
-        const fortunaPapel = document.getElementById('fortuna-papel-texto');
-        const modal = document.getElementById('contact-modal');
-        const closeModalBtn = document.querySelector('.modal-close');
+            // --- 'LA FORTUNA' ANIMATION ---
+            const galletaTrigger = document.getElementById('galleta-anim-trigger');
+            if (galletaTrigger) {
+                const frames = galletaTrigger.querySelectorAll(".galleta-secuencia");
+                const frameCount = frames.length;
+                const fortunaPapel = galletaTrigger.querySelector('.fortuna-papel');
+                gsap.set(frames, { autoAlpha: 0 });
+                gsap.set(frames[0], { autoAlpha: 1 });
+                gsap.set(fortunaPapel, { autoAlpha: 0 });
 
-        if (generarFortunaBtn && galletaImg && fortunaPapel && modal && closeModalBtn) {
-            let fortunaGratisConcedida = false;
-            let animacionEnCurso = false;
-
-            function obtenerNuevaFortuna() {
-                if (animacionEnCurso) return;
-                animacionEnCurso = true;
-
-                let frame = 1;
-                const totalFrames = 8;
-                galletaImg.src = `imagenes/galleta-01.png`;
-                if (fortunaPapel.parentElement) {
-                    fortunaPapel.parentElement.style.display = 'none';
-                }
-
-                const interval = setInterval(() => {
-                    frame++;
-                    if (frame <= totalFrames) {
-                        galletaImg.src = `imagenes/galleta-0${frame}.png`;
-                    } else {
-                        clearInterval(interval);
-                        // AHORA USA LOS DATOS LOCALES
-                        const fortunaAleatoria = datosFortunas[Math.floor(Math.random() * datosFortunas.length)];
-                        fortunaPapel.textContent = fortunaAleatoria;
-                        if (fortunaPapel.parentElement) {
-                            fortunaPapel.parentElement.style.display = 'block';
-                        }
-                        animacionEnCurso = false;
+                const tlCookie = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#la-fortuna",
+                        start: "top top",
+                        end: "bottom bottom",
+                        scrub: true,
                     }
-                }, 100);
+                });
+
+                const step = 1 / frameCount;
+                frames.forEach((frame, i) => {
+                    if (i > 0) tlCookie.set(frames[i - 1], { autoAlpha: 0 }, i * step);
+                    tlCookie.set(frame, { autoAlpha: 1 }, i * step);
+                });
+                tlCookie.to(fortunaPapel, { autoAlpha: 1 }, 1-step);
             }
 
-            generarFortunaBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (!fortunaGratisConcedida) {
-                    obtenerNuevaFortuna();
-                    fortunaGratisConcedida = true;
-                } else {
-                    modal.classList.add('visible');
-                }
-            });
-            
-            closeModalBtn.addEventListener('click', () => modal.classList.remove('visible'));
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.classList.remove('visible');
-            });
-        }
-
-        // --- LÓGICA PARA EL TAROT DE DANTE (CON SCROLL) ---
-        const danteSection = document.getElementById('dante-en-la-playa');
-        const tarotResultGrid = document.getElementById('tarot-result-grid');
-        const tarotInstruction = document.getElementById('tarot-instruction');
-
-        if (danteSection && tarotResultGrid && tarotInstruction) {
-            let tarotYaRevelado = false;
-            
-            function getTarotReading() {
-                if (tarotYaRevelado) return;
-                tarotYaRevelado = true;
-
-                // AHORA USA LOS DATOS LOCALES
-                const barajado = datosTarot.sort(() => 0.5 - Math.random());
-                const seleccion = barajado.slice(0, 3);
-
-                tarotResultGrid.innerHTML = '';
-                tarotInstruction.style.display = 'none';
+            const backgroundImages = [ 'imagenes/fortuna-imagen-1.jpg', 'imagenes/fortuna-imagen-2.jpg', 'imagenes/fortuna-imagen-3.jpg', 'imagenes/fortuna-imagen-4.jpg', 'imagenes/fortuna-imagen-5.jpg' ];
+            const fortunaBackgroundSlideshow = document.getElementById('fortuna-background-slideshow');
+            if (fortunaBackgroundSlideshow) {
+                let currentBackgroundIndex = 0;
+                fortunaBackgroundSlideshow.style.backgroundImage = `url('${backgroundImages[0]}')`;
+                gsap.to(fortunaBackgroundSlideshow, {opacity: 1, duration: 1});
                 
-                seleccion.forEach((carta, index) => {
-                    const cardElement = document.createElement('img');
-                    cardElement.src = carta.imagenUrl;
-                    cardElement.alt = carta.nombre;
-                    cardElement.title = `${carta.nombre}: ${carta.significado}`;
-                    cardElement.classList.add('tarot-card');
-                    cardElement.style.opacity = '0';
-                    cardElement.style.transform = 'translateY(20px)';
-                    cardElement.style.transition = `opacity 0.5s ease ${index * 0.3}s, transform 0.5s ease ${index * 0.3}s`;
-                    tarotResultGrid.appendChild(cardElement);
-
-                    setTimeout(() => {
-                        cardElement.style.opacity = '1';
-                        cardElement.style.transform = 'translateY(0)';
-                    }, 50);
-                });
-            }
-
-            const tarotObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        getTarotReading();
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.4 });
-
-            tarotObserver.observe(danteSection);
-        }
-        
-        // --- LÓGICA PARA POEMAS APESTOSOS ---
-        const poemaTituloEl = document.getElementById('poema-titulo');
-        const poemaTextoEl = document.getElementById('poema-texto');
-        const poemaAutorEl = document.getElementById('poema-autor');
-        const prevPoemaBtn = document.getElementById('prev-poema');
-        const nextPoemaBtn = document.getElementById('next-poema');
-        const leerManuscritoBtn = document.getElementById('leer-manuscrito-btn');
-        const manuscritoContainer = document.getElementById('manuscrito-container');
-
-        if (poemaTituloEl && poemaTextoEl && poemaAutorEl && prevPoemaBtn && nextPoemaBtn && leerManuscritoBtn && manuscritoContainer) {
-            // AHORA USA LOS DATOS LOCALES
-            const todosLosPoemas = datosPoemas.poemas;
-            let poemaActualIndex = 0;
-
-            function mostrarPoema(index) {
-                if (!todosLosPoemas || todosLosPoemas.length === 0) return;
-                const poema = todosLosPoemas[index];
-                poemaTituloEl.textContent = poema.titulo;
-                poemaTextoEl.textContent = poema.poema;
-                poemaAutorEl.textContent = `- ${poema.autor}`;
+                setInterval(() => {
+                    currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundImages.length;
+                    gsap.to(fortunaBackgroundSlideshow, {
+                        opacity: 0, duration: 1,
+                        onComplete: () => {
+                            fortunaBackgroundSlideshow.style.backgroundImage = `url('${backgroundImages[currentBackgroundIndex]}')`;
+                            gsap.to(fortunaBackgroundSlideshow, { opacity: 1, duration: 1 });
+                        }
+                    });
+                }, 5000);
             }
             
-            // Mostrar el primer poema y rellenar el manuscrito
-            mostrarPoema(0);
-            const queEsEl = document.querySelector('#manuscrito-que-es');
-            if (queEsEl) {
-                queEsEl.querySelector('h4').textContent = datosPoemas.manuscrito.queEs.titulo;
-                queEsEl.querySelector('p').textContent = datosPoemas.manuscrito.queEs.texto;
-            }
-            const porQueEl = document.querySelector('#manuscrito-por-que');
-            if (porQueEl) {
-                porQueEl.querySelector('h4').textContent = datosPoemas.manuscrito.porQue.titulo;
-                porQueEl.querySelector('p').textContent = datosPoemas.manuscrito.porQue.texto;
+            const generateFortuneBtn = document.getElementById('generate-fortune-btn');
+            const emailModal = document.getElementById('email-modal');
+            if (emailModal) {
+                 const closeModalBtn = emailModal.querySelector('.modal-close');
+                 const emailForm = document.getElementById('email-form');
+                 if (generateFortuneBtn) {
+                    generateFortuneBtn.addEventListener('click', () => emailModal.classList.add('visible'));
+                 }
+                 if (closeModalBtn) {
+                    closeModalBtn.addEventListener('click', () => emailModal.classList.remove('visible'));
+                 }
+                 if (emailForm) {
+                    emailForm.addEventListener('submit', (event) => {
+                        event.preventDefault();
+                        emailModal.classList.remove('visible');
+                        generateFortune();
+                    });
+                 }
             }
 
-            nextPoemaBtn.addEventListener('click', () => {
-                poemaActualIndex = (poemaActualIndex + 1) % todosLosPoemas.length;
-                mostrarPoema(poemaActualIndex);
-            });
-            prevPoemaBtn.addEventListener('click', () => {
-                poemaActualIndex = (poemaActualIndex - 1 + todosLosPoemas.length) % todosLosPoemas.length;
-                mostrarPoema(poemaActualIndex);
-            });
-            leerManuscritoBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const isHidden = manuscritoContainer.style.display === 'none';
-                manuscritoContainer.style.display = isHidden ? 'block' : 'none';
-                leerManuscritoBtn.textContent = isHidden ? 'Ocultar Manuscrito' : 'Leer Manuscrito';
-            });
+
+            // --- LÓGICA TAROT ---
+            const tarotCardsData = [
+                { name: "Carta 1: El Viaje Desolado", image: "imagenes/tarot-1.png", interpretation: "El viaje inicia con abandono, dejando atrás lo que ya no sirve." },
+                { name: "Carta 2: La Soledad del Desierto", image: "imagenes/tarot-2.jpg", interpretation: "La soledad y aridez subrayan un aislamiento sin guía espiritual." },
+                { name: "Carta 3: La Ascensión", image: "imagenes/tarot-3.jpeg", interpretation: "Una revelación forzosa que impulsa a emprender la redención." },
+                { name: "Carta 4: El Paraíso", image: "imagenes/tarot-4.jpg", interpretation: "La culminación del viaje, un reencuentro que trae paz y gracia." }
+            ];
+
+            const drawTarotBtn = document.getElementById('draw-tarot-btn');
+            const tarotResultGrid = document.getElementById('tarot-result-grid');
+            const tarotModal = document.getElementById('tarot-modal');
+            const tarotDeck = document.getElementById('tarot-deck');
+            
+            if(drawTarotBtn) {
+                let currentTarotCardIndex = 0;
+
+                function drawCard() {
+                    if (currentTarotCardIndex >= tarotCardsData.length) return;
+                    const cardData = tarotCardsData[currentTarotCardIndex];
+                    const cardElement = document.createElement('img');
+                    cardElement.src = cardData.image;
+                    cardElement.alt = cardData.name;
+                    cardElement.className = 'tarot-card';
+                    cardElement.style.opacity = 0;
+                    
+                    cardElement.addEventListener('click', () => {
+                        document.getElementById('tarot-modal-img').src = cardData.image;
+                        document.getElementById('tarot-modal-title').innerText = cardData.name;
+                        document.getElementById('tarot-modal-text').innerText = cardData.interpretation;
+                        tarotModal.classList.add('visible');
+                    });
+
+                    tarotResultGrid.appendChild(cardElement);
+                    gsap.to(cardElement, { opacity: 1, duration: 0.5, delay: 0.1 });
+
+                    currentTarotCardIndex++;
+
+                    if (currentTarotCardIndex >= tarotCardsData.length) {
+                        drawTarotBtn.innerText = 'Lectura Completa';
+                        drawTarotBtn.disabled = true;
+                        gsap.to([drawTarotBtn, tarotDeck], {autoAlpha: 0.5, duration: 0.5});
+                    }
+                }
+                
+                drawTarotBtn.addEventListener('click', drawCard);
+                tarotDeck.addEventListener('click', drawCard);
+
+                const tarotModalClose = tarotModal.querySelector('.tarot-modal-close');
+                tarotModalClose.addEventListener('click', () => tarotModal.classList.remove('visible'));
+                tarotModal.addEventListener('click', (e) => {
+                    if (e.target === tarotModal) tarotModal.classList.remove('visible');
+                });
+            }
+
+            // --- LÓGICA PARA POEMAS APESTOSOS ---
+            const datosPoemas = {
+                poemas: [
+                    {
+                        titulo: "Oda al Calcetín Perdido",
+                        autor: "Anónimo Desparejado",
+                        poema: "En el abismo del cesto te busqué,\nentre sábanas y calzones me asomé.\n¿Dónde estás, mi fiel compañero?\nSeguro te tragó el agujero negro del lavadero."
+                    },
+                    {
+                        titulo: "El Chicle Inmortal",
+                        autor: "Filósofo de la Acera",
+                        poema: "Pegado al suelo, ves pasar la vida,\nsoportas lluvias, sol y mil pisadas.\nEres más duro que político en campaña,\ny más eterno que la deuda de España."
+                    },
+                    {
+                        titulo: "Lamento del Wi-Fi Caído",
+                        autor: "El Náufrago Digital",
+                        poema: "Una barra, ninguna, parpadeas sin fin.\nMi mundo se detiene, oh, trágico confín.\nSin memes, sin series, sin luz en mi existir,\n¡vuelve, señal divina, o voy a sucumbir!"
+                    }
+                ],
+                manuscrito: {
+                    queEs: {
+                        titulo: "¿Qué es un poema apestoso?",
+                        texto: "Es un verso sin vergüenza, un juego de palabras que prefiere la carcajada a la métrica. Nace de la observación cotidiana, de lo absurdo y lo irreverente. No busca la inmortalidad en una antología, sino una sonrisa cómplice."
+                    },
+                    porQue: {
+                        titulo: "¿Por qué un poema apestoso?",
+                        texto: "Porque la poesía también puede reírse de sí misma, quitarse el corsé y celebrar lo imperfecto. Un poema apestoso es una invitación a escribir sin miedo al ridículo, a encontrar una belleza extraña y divertida en lo inesperado."
+                    }
+                }
+            };
+            const poemaTituloEl = document.getElementById('poema-titulo');
+            const poemaTextoEl = document.getElementById('poema-texto');
+            const poemaAutorEl = document.getElementById('poema-autor');
+            const prevPoemaBtn = document.getElementById('prev-poema');
+            const nextPoemaBtn = document.getElementById('next-poema');
+            const leerManuscritoBtn = document.getElementById('leer-manuscrito-btn');
+            const manuscritoContainer = document.getElementById('manuscrito-container');
+
+            if (poemaTituloEl && poemaTextoEl && poemaAutorEl && prevPoemaBtn && nextPoemaBtn && leerManuscritoBtn && manuscritoContainer) {
+                const todosLosPoemas = datosPoemas.poemas;
+                let poemaActualIndex = 0;
+
+                function mostrarPoema(index) {
+                    if (!todosLosPoemas || todosLosPoemas.length === 0) return;
+                    const poema = todosLosPoemas[index];
+                    poemaTituloEl.textContent = poema.titulo;
+                    poemaTextoEl.textContent = poema.poema;
+                    poemaAutorEl.textContent = `- ${poema.autor}`;
+                }
+                
+                // Mostrar el primer poema y rellenar el manuscrito
+                mostrarPoema(0);
+                const queEsEl = document.querySelector('#manuscrito-que-es');
+                if (queEsEl) {
+                    queEsEl.querySelector('h4').textContent = datosPoemas.manuscrito.queEs.titulo;
+                    queEsEl.querySelector('p').textContent = datosPoemas.manuscrito.queEs.texto;
+                }
+                const porQueEl = document.querySelector('#manuscrito-por-que');
+                if (porQueEl) {
+                    porQueEl.querySelector('h4').textContent = datosPoemas.manuscrito.porQue.titulo;
+                    porQueEl.querySelector('p').textContent = datosPoemas.manuscrito.porQue.texto;
+                }
+
+                nextPoemaBtn.addEventListener('click', () => {
+                    poemaActualIndex = (poemaActualIndex + 1) % todosLosPoemas.length;
+                    mostrarPoema(poemaActualIndex);
+                });
+                prevPoemaBtn.addEventListener('click', () => {
+                    poemaActualIndex = (poemaActualIndex - 1 + todosLosPoemas.length) % todosLosPoemas.length;
+                    mostrarPoema(poemaActualIndex);
+                });
+                leerManuscritoBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const isHidden = manuscritoContainer.style.display === 'none';
+                    manuscritoContainer.style.display = isHidden ? 'block' : 'none';
+                    leerManuscritoBtn.textContent = isHidden ? 'Ocultar Manuscrito' : 'Leer Manuscrito';
+                });
+            }
+        });
+
+        async function generateFortune() {
+            const fortunePaper = document.querySelector('.fortuna-papel');
+            const generateBtn = document.getElementById('generate-fortune-btn');
+            
+            const apiKey = "AIzaSyCjMXMQUpL9iV7ZyimM3eO9a6b09BycSCo"; 
+
+            generateBtn.innerText = 'Generando...';
+            generateBtn.disabled = true;
+
+            try {
+                const prompt = "Escribe una fortuna para una galleta, en español. Debe ser corta, poética, y con un toque de melancolía sobre el pasado, el amor perdido o el destino. Como si la hubiera escrito un escritor recordando su juventud. Máximo 20 palabras.";
+                const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`Error en la API: ${response.statusText} - ${errorData.error.message}`);
+                }
+
+                const result = await response.json();
+                const newFortune = result.candidates[0].content.parts[0].text;
+                fortunePaper.innerText = newFortune.trim().replace(/"/g, '');
+
+            } catch (error) {
+                console.error("Error al generar la fortuna:", error);
+                fortunePaper.innerText = "No se pudo generar una fortuna. Intenta de nuevo.";
+            } finally {
+                generateBtn.innerText = '✨ Pedir Otra Fortuna';
+                generateBtn.disabled = false;
+            }
         }
-    });
     </script>
 </body>
 </html>
